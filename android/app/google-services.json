@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "630529679336",
+    "project_id": "aicareerpilot-358f3",
+    "storage_bucket": "aicareerpilot-358f3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630529679336:android:c4e6b61483ca18bb02ce5d",
+        "android_client_info": {
+          "package_name": "com.example.ai_careerpilot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCD2kJmc5mF8RlUdc1ynEaTOMDAFciWcGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
