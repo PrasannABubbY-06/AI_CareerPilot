@@ -29,26 +29,39 @@ class GlassContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     final defaultRadius = BorderRadius.circular(24);
     final finalRadius = borderRadius ?? defaultRadius;
+    
+    // Disable BackdropFilter on Android to prevent Impeller GPU shader compilation errors
+    // related to texture LOD bias (e.g., texture(..., -0.475)) on Mali/Adreno GPUs.
+    final bool isAndroid = Theme.of(context).platform == TargetPlatform.android;
+
+    final container = Container(
+      width: width,
+      height: height,
+      padding: padding,
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(isAndroid ? (opacity * 1.5).clamp(0.0, 1.0) : opacity),
+        borderRadius: finalRadius,
+        border: border ?? Border.all(
+          color: Colors.white.withOpacity(0.08),
+          width: 1.0,
+        ),
+        gradient: gradient,
+      ),
+      child: child,
+    );
+
+    if (isAndroid) {
+      return ClipRRect(
+        borderRadius: finalRadius,
+        child: container,
+      );
+    }
 
     return ClipRRect(
       borderRadius: finalRadius,
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-        child: Container(
-          width: width,
-          height: height,
-          padding: padding,
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(opacity),
-            borderRadius: finalRadius,
-            border: border ?? Border.all(
-              color: Colors.white.withOpacity(0.08),
-              width: 1.0,
-            ),
-            gradient: gradient,
-          ),
-          child: child,
-        ),
+        child: container,
       ),
     );
   }

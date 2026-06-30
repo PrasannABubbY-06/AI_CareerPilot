@@ -5,6 +5,7 @@ import '../../../constants/app_colors.dart';
 import '../../../widgets/common/primary_button.dart';
 import '../../../widgets/common/glass_container.dart';
 import 'voice_interview_service.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class VoiceInterviewScreen extends StatefulWidget {
   const VoiceInterviewScreen({super.key});
@@ -45,7 +46,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -67,7 +68,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withOpacity(0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -85,7 +86,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                 Text(
                   "CURRENT QUESTION",
                   style: GoogleFonts.poppins(
-                    color: AppColors.primary,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 12,
                     letterSpacing: 1.2,
@@ -127,7 +128,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                             height: 90.0 + (index * 20.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: AppColors.primary.withOpacity(0.12 - (index * 0.03)),
+                              color: Theme.of(context).primaryColor.withOpacity(0.12 - (index * 0.03)),
                             ),
                           ).animate(onPlay: (controller) => controller.repeat(reverse: true))
                            .scale(begin: const Offset(0.9, 0.9), end: const Offset(1.1, 1.1), duration: (800 + index * 200).ms, curve: Curves.easeInOut);
@@ -137,10 +138,10 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                         height: 90,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: AppColors.primaryGradient,
+                          gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.primary.withOpacity(0.35),
+                              color: Theme.of(context).primaryColor.withOpacity(0.35),
                               blurRadius: 20,
                               offset: const Offset(0, 6),
                             ),
@@ -161,7 +162,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                 Text(
                   isListening ? "Listening... Speak now" : "Tap Mic To Start Answering",
                   style: GoogleFonts.poppins(
-                    color: isListening ? AppColors.success : AppColors.textSecondary,
+                    color: isListening ? Theme.of(context).extension<AppThemeExtension>()!.success : (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                     fontWeight: FontWeight.w600,
                     fontSize: 13,
                   ),

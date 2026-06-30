@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../constants/app_colors.dart';
 import '../../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class CareerGoalScreen extends StatelessWidget {
   final Function(String) onNext;
@@ -62,7 +63,7 @@ class CareerGoalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -75,7 +76,7 @@ class CareerGoalScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
                     blurRadius: 120,
                   ),
                 ],
@@ -98,13 +99,13 @@ class CareerGoalScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.12),
+                          color: Theme.of(context).primaryColor.withOpacity(0.12),
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(
                           "STEP 2 OF 6",
                           style: GoogleFonts.poppins(
-                            color: AppColors.primary,
+                            color: Theme.of(context).primaryColor,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1.0,
@@ -129,10 +130,10 @@ class CareerGoalScreen extends StatelessWidget {
                         mainAxisSpacing: 14,
                         childAspectRatio: 0.95,
                         children: [
-                          buildCard("Get Job", Icons.work_rounded, AppColors.primary, 0),
+                          buildCard("Get Job", Icons.work_rounded, Theme.of(context).primaryColor, 0),
                           buildCard("Switch Career", Icons.swap_horizontal_circle_rounded, AppColors.accentPink, 1),
-                          buildCard("Upskill", Icons.trending_up_rounded, AppColors.success, 2),
-                          buildCard("College", Icons.school_rounded, AppColors.warning, 3),
+                          buildCard("Upskill", Icons.trending_up_rounded, Theme.of(context).extension<AppThemeExtension>()!.success, 2),
+                          buildCard("College", Icons.school_rounded, Theme.of(context).extension<AppThemeExtension>()!.warning, 3),
                         ],
                       ),
                     ],

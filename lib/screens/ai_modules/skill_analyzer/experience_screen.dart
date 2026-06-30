@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../constants/app_colors.dart';
 import '../../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class ExperienceScreen extends StatelessWidget {
   final Function(String) onNext;
@@ -61,7 +62,7 @@ class ExperienceScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -74,7 +75,7 @@ class ExperienceScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withOpacity(0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -96,13 +97,13 @@ class ExperienceScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.12),
+                          color: Theme.of(context).primaryColor.withOpacity(0.12),
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(
                           "STEP 3 OF 6",
                           style: GoogleFonts.poppins(
-                            color: AppColors.primary,
+                            color: Theme.of(context).primaryColor,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1.0,
@@ -131,21 +132,21 @@ class ExperienceScreen extends StatelessWidget {
                       buildCard(
                         "I Know Basics",
                         Icons.menu_book_rounded,
-                        AppColors.warning,
+                        Theme.of(context).extension<AppThemeExtension>()!.warning,
                         1,
                       ),
                       const SizedBox(height: 14),
                       buildCard(
                         "I Have Built Projects",
                         Icons.code_rounded,
-                        AppColors.secondary,
+                        Theme.of(context).colorScheme.secondary,
                         2,
                       ),
                       const SizedBox(height: 14),
                       buildCard(
                         "Professional Experience",
                         Icons.work_rounded,
-                        AppColors.success,
+                        Theme.of(context).extension<AppThemeExtension>()!.success,
                         3,
                       ),
                     ],

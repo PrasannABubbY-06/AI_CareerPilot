@@ -3,9 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'firebase_options.dart';
+import 'config/app_theme.dart';
+import 'services/theme_service.dart';
 
 // SCREENS
 import 'screens/onboarding/onboarding_screen.dart';
@@ -22,6 +23,7 @@ import 'screens/ai_modules/skill_analyzer/skill_analyzer_screen.dart';
 import 'screens/profile/profile_screen.dart';
 import 'screens/recruiter/recruiter_dashboard.dart';
 import 'screens/goals/weekly_goals_screen.dart';
+import 'screens/notifications/notifications_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,6 +45,8 @@ Future<void> main() async {
   final seenOnboarding =
       prefs.getBool("onboarding_completed") ?? false;
 
+  await ThemeService().initialize();
+
   runApp(MyApp(seenOnboarding: seenOnboarding));
 }
 
@@ -53,61 +57,59 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "AI_CareerPilot",
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: ThemeService(),
+      builder: (context, themeMode, _) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: "AI_CareerPilot",
 
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xff070B19),
-        primaryColor: const Color(0xff5D8CFF),
-        cardColor: const Color(0xff0F162A),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xff070B19),
-          elevation: 0,
-        ),
-        fontFamily: GoogleFonts.poppins().fontFamily,
-      ),
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: themeMode,
 
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
+          home: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
 
-          if (snapshot.connectionState ==
-              ConnectionState.waiting) {
-            return const Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            );
-          }
+              if (snapshot.connectionState ==
+                  ConnectionState.waiting) {
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+              }
 
-          // logged in
-          if (snapshot.hasData) {
-            return DashboardScreen();
-          }
+              // logged in
+              if (snapshot.hasData) {
+                return DashboardScreen();
+              }
 
-          // not logged in
-          if (seenOnboarding) {
-            return const LoginScreen();
-          }
+              // not logged in
+              if (seenOnboarding) {
+                return const LoginScreen();
+              }
 
-          return const OnboardingScreen();
-        },
-      ),
+              return const OnboardingScreen();
+            },
+          ),
 
-      routes: {
-        "/login": (_) => const LoginScreen(),
-        "/register": (context) => const RegisterScreen(),
-        "/dashboard": (_) => DashboardScreen(),
-        "/skill-analyzer": (_) => const SkillAnalyzerScreen(),
-        "/resume-review": (_) => ResumeReviewerScreen(),
-        "/resume-builder": (_) => const ResumeBuilderScreen(),
-        "/jd-match": (_) => const JDMatchScreen(),
-        "/mock-interview": (_) => const MockInterviewScreen(),
-        "/voice-interview": (_) => const VoiceInterviewScreen(),
-        "/roadmap": (_) => const RoadmapScreen(),
-        "/profile": (_) => const ProfileScreen(),
-        "/recruiter-dashboard": (_) => const RecruiterDashboard(),
-        "/weekly-goals": (context) => const WeeklyGoalsScreen(),
+          routes: {
+            "/login": (_) => const LoginScreen(),
+            "/register": (context) => const RegisterScreen(),
+            "/dashboard": (_) => DashboardScreen(),
+            "/skill-analyzer": (_) => const SkillAnalyzerScreen(),
+            "/resume-review": (_) => ResumeReviewerScreen(),
+            "/resume-builder": (_) => const ResumeBuilderScreen(),
+            "/jd-match": (_) => const JDMatchScreen(),
+            "/mock-interview": (_) => const MockInterviewScreen(),
+            "/voice-interview": (_) => const VoiceInterviewScreen(),
+            "/roadmap": (_) => const RoadmapScreen(),
+            "/profile": (_) => const ProfileScreen(),
+            "/recruiter-dashboard": (_) => const RecruiterDashboard(),
+            "/weekly-goals": (context) => const WeeklyGoalsScreen(),
+            "/notifications": (context) => const NotificationsScreen(),
+          },
+        );
       },
     );
   }

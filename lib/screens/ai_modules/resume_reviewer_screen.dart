@@ -1,5 +1,8 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,6 +13,7 @@ import '../../services/groq_service.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class ResumeReviewerScreen extends StatefulWidget {
   const ResumeReviewerScreen({super.key});
@@ -20,7 +24,6 @@ class ResumeReviewerScreen extends StatefulWidget {
 
 class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
   // ================= CONTROLLERS =================
-  final TextEditingController resumeController = TextEditingController();
   final TextEditingController roleController = TextEditingController();
   final TextEditingController interestController = TextEditingController();
 
@@ -32,6 +35,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
   // ================= STATES =================
   bool isLoading = false;
   String uploadedFileName = "";
+  String resumeText = "";
   List<String> detectedSkills = [];
   List<String> missingSkills = [];
   List<String> recommendedJobs = [];
@@ -67,20 +71,67 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
 
   // ================= PICK RESUME =================
   Future<void> pickResume() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['pdf', 'txt'],
+        withData: true,
+      );
 
-    if (result != null) {
+      if (result == null) return;
+
+      final pickedFile = result.files.first;
+      final fileName = pickedFile.name;
+
+      String extractedText = "";
+
+      if (pickedFile.extension == "pdf") {
+        extractedText = await extractPdfTextFromBytes(pickedFile.bytes!);
+      } else if (pickedFile.extension == "txt") {
+        extractedText = kIsWeb
+            ? String.fromCharCodes(pickedFile.bytes!)
+            : await File(pickedFile.path!).readAsString();
+      }
+
       setState(() {
-        uploadedFileName = result.files.single.name;
-        resumeController.clear();
+        uploadedFileName = fileName;
+        resumeText = extractedText;
       });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Resume uploaded successfully", style: GoogleFonts.poppins()),
+          backgroundColor: Theme.of(context).extension<AppThemeExtension>()!.success,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    } catch (e) {
+      debugPrint("UPLOAD ERROR: $e");
     }
+  }
+
+  // ================= PDF TEXT EXTRACT =================
+  static String _extractPdfText(Uint8List bytes) {
+    try {
+      final document = PdfDocument(inputBytes: bytes);
+      final text = PdfTextExtractor(document).extractText();
+      document.dispose();
+      return text;
+    } catch (e) {
+      return "";
+    }
+  }
+
+  Future<String> extractPdfTextFromBytes(Uint8List bytes) async {
+    return await compute(_extractPdfText, bytes);
   }
 
   // ================= ANALYZE =================
   Future<void> analyzeResume() async {
-    if (resumeController.text.trim().isEmpty) {
-      _showMsg("Please paste resume content");
+    if (resumeText.trim().isEmpty) {
+      _showMsg("Please upload a valid resume file first");
       return;
     }
 
@@ -93,7 +144,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
       isLoading = true;
     });
 
-    final resume = resumeController.text.toLowerCase();
+    final resume = resumeText.toLowerCase();
     final targetRole = roleController.text.toLowerCase();
     final interests = interestController.text.toLowerCase().split(",");
 
@@ -182,11 +233,16 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
       jobs.add("Improve skills to unlock jobs");
     }
     
-    final roadmap = await groqAPI.generateLearningRoadmap(missing);
-    final resumeSuggestions = await groqAPI.improveResume(
-      resumeController.text,
-      roleController.text,
-    );
+    final results = await Future.wait([
+      groqAPI.generateLearningRoadmap(missing),
+      groqAPI.improveResume(
+        resumeText,
+        roleController.text,
+      )
+    ]);
+    
+    final roadmap = results[0];
+    final resumeSuggestions = results[1];
 
     setState(() {
       detectedSkills = foundSkills;
@@ -204,7 +260,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(msg, style: GoogleFonts.poppins()),
-        backgroundColor: AppColors.error,
+        backgroundColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -237,7 +293,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -259,7 +315,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withOpacity(0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -278,11 +334,11 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(22),
                   decoration: BoxDecoration(
-                    gradient: AppColors.primaryGradient,
+                    gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.primary.withOpacity(0.2),
+                        color: Theme.of(context).primaryColor.withOpacity(0.2),
                         blurRadius: 16,
                         offset: const Offset(0, 6),
                       ),
@@ -320,7 +376,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                       color: Colors.white.withOpacity(0.02),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: AppColors.primary.withOpacity(0.4),
+                        color: Theme.of(context).primaryColor.withOpacity(0.4),
                         width: 1.5,
                         style: BorderStyle.solid, // Note: Flutter doesn't native dash easily without painter, solid is fine with lower opacity
                       ),
@@ -331,7 +387,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                         children: [
                           Icon(
                             Icons.cloud_upload_outlined,
-                            color: AppColors.primary,
+                            color: Theme.of(context).primaryColor,
                             size: 32,
                           ).animate(onPlay: (controller) => controller.repeat(reverse: true))
                            .moveY(begin: -3, end: 3, duration: 1.seconds),
@@ -339,7 +395,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                           Text(
                             uploadedFileName.isEmpty ? "Drag and drop or select resume file" : uploadedFileName,
                             style: GoogleFonts.poppins(
-                              color: uploadedFileName.isEmpty ? AppColors.textSecondary : Colors.white,
+                              color: uploadedFileName.isEmpty ? (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey) : Colors.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -370,36 +426,14 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                 
                 const SizedBox(height: 16),
 
-                // ================= RESUME TEXT =================
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: const Color(0xFF0C101B),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.08),
-                    ),
-                  ),
-                  child: TextField(
-                    controller: resumeController,
-                    maxLines: 8,
-                    style: GoogleFonts.poppins(color: Colors.white, fontSize: 14),
-                    decoration: InputDecoration(
-                      hintText: "Or Paste Resume Content Here...",
-                      hintStyle: GoogleFonts.poppins(color: Colors.white24, fontSize: 13),
-                      contentPadding: const EdgeInsets.all(18),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                
-                const SizedBox(height: 24),
+                // Paste UI section removed as per requirement
 
                 // ================= ANALYZE BUTTON =================
                 PrimaryButton(
                   text: "Analyze with AI",
                   isLoading: isLoading,
                   onPressed: analyzeResume,
-                  gradient: AppColors.primaryGradient,
+                  gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                 ),
                 
                 const SizedBox(height: 25),
@@ -419,9 +453,9 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                           height: 80,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: (resumeScore >= 70 ? AppColors.success : AppColors.warning).withOpacity(0.1),
+                            color: (resumeScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning).withOpacity(0.1),
                             border: Border.all(
-                              color: (resumeScore >= 70 ? AppColors.success : AppColors.warning),
+                              color: (resumeScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning),
                               width: 2.0,
                             ),
                           ),
@@ -429,7 +463,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                             child: Text(
                               "$resumeScore%",
                               style: GoogleFonts.poppins(
-                                color: (resumeScore >= 70 ? AppColors.success : AppColors.warning),
+                                color: (resumeScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning),
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -458,7 +492,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                   ),
                   const SizedBox(height: 12),
                   Wrap(
-                    children: detectedSkills.map((e) => skillChip(e, AppColors.success)).toList(),
+                    children: detectedSkills.map((e) => skillChip(e, Theme.of(context).extension<AppThemeExtension>()!.success)).toList(),
                   ),
                   
                   const SizedBox(height: 24),
@@ -471,7 +505,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                   const SizedBox(height: 12),
                   Wrap(
                     children: missingSkills.isEmpty 
-                      ? <Widget>[skillChip("None! All matching" , AppColors.primary)] 
+                      ? <Widget>[skillChip("None! All matching" , Theme.of(context).primaryColor)] 
                       : missingSkills.map((e) => skillChip(e, AppColors.accentPink)).toList(),
                   ),
                   
@@ -496,7 +530,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.work_rounded, color: AppColors.primary, size: 20),
+                            Icon(Icons.work_rounded, color: Theme.of(context).primaryColor, size: 20),
                             const SizedBox(width: 14),
                             Text(
                               job, 
@@ -523,21 +557,23 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                     borderRadius: BorderRadius.circular(22),
                     child: MarkdownBody(
                       data: aiRoadmap,
-                      onTapLink: (text, href, title) async {
+                      onTapLink: (text, href, title) {
                         if (href != null) {
-                          final Uri url = Uri.parse(href);
-                          if (await canLaunchUrl(url)) {
-                            await launchUrl(url, mode: LaunchMode.externalApplication);
+                          try {
+                            final Uri url = Uri.parse(href);
+                            launchUrl(url, mode: LaunchMode.externalApplication);
+                          } catch (e) {
+                            debugPrint("Could not launch $href");
                           }
                         }
                       },
                       styleSheet: MarkdownStyleSheet(
-                        p: GoogleFonts.poppins(color: AppColors.textSecondary, height: 1.5, fontSize: 13.5),
+                        p: GoogleFonts.poppins(color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey), height: 1.5, fontSize: 13.5),
                         h1: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                         h2: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                         h3: GoogleFonts.poppins(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
-                        listBullet: GoogleFonts.poppins(color: AppColors.primary),
-                        a: GoogleFonts.poppins(color: AppColors.primary, decoration: TextDecoration.underline),
+                        listBullet: GoogleFonts.poppins(color: Theme.of(context).primaryColor),
+                        a: GoogleFonts.poppins(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline),
                       ),
                     ),
                   ),
@@ -557,20 +593,22 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                     borderRadius: BorderRadius.circular(22),
                     child: MarkdownBody(
                       data: aiResumeSuggestions,
-                      onTapLink: (text, href, title) async {
+                      onTapLink: (text, href, title) {
                         if (href != null) {
-                          final Uri url = Uri.parse(href);
-                          if (await canLaunchUrl(url)) {
-                            await launchUrl(url, mode: LaunchMode.externalApplication);
+                          try {
+                            final Uri url = Uri.parse(href);
+                            launchUrl(url, mode: LaunchMode.externalApplication);
+                          } catch (e) {
+                            debugPrint("Could not launch $href");
                           }
                         }
                       },
                       styleSheet: MarkdownStyleSheet(
-                        p: GoogleFonts.poppins(color: AppColors.textSecondary, height: 1.5, fontSize: 13.5),
+                        p: GoogleFonts.poppins(color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey), height: 1.5, fontSize: 13.5),
                         h1: GoogleFonts.poppins(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                         h2: GoogleFonts.poppins(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-                        listBullet: GoogleFonts.poppins(color: AppColors.secondary),
-                        a: GoogleFonts.poppins(color: AppColors.primary, decoration: TextDecoration.underline),
+                        listBullet: GoogleFonts.poppins(color: Theme.of(context).colorScheme.secondary),
+                        a: GoogleFonts.poppins(color: Theme.of(context).primaryColor, decoration: TextDecoration.underline),
                       ),
                     ),
                   ),

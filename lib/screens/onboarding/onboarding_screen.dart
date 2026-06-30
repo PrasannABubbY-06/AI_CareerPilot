@@ -7,6 +7,7 @@ import '../../constants/app_colors.dart';
 import '../../widgets/animations/three_d_tilt_wrapper.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -57,7 +58,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Background Glowing Mesh Circles
@@ -71,7 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.15),
+                    color: Theme.of(context).primaryColor.withOpacity(0.15),
                     blurRadius: 120,
                   ),
                 ],
@@ -88,7 +89,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.12),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.12),
                     blurRadius: 150,
                   ),
                 ],
@@ -165,7 +166,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
                             // Glowing Gradient/White Title
                             ShaderMask(
-                              shaderCallback: (bounds) => AppColors.primaryGradient.createShader(bounds),
+                              shaderCallback: (bounds) => Theme.of(context).extension<AppThemeExtension>()!.primaryGradient.createShader(bounds),
                               child: Text(
                                 page.title,
                                 textAlign: TextAlign.center,
@@ -188,7 +189,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               textAlign: TextAlign.center,
                               style: GoogleFonts.poppins(
                                 fontSize: 14.5,
-                                color: AppColors.textSecondary,
+                                color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                                 height: 1.6,
                               ),
                             ).animate(key: ValueKey('${page.description}_desc'))
@@ -205,10 +206,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SmoothPageIndicator(
                   controller: _pageController,
                   count: _pages.length,
-                  effect: const ExpandingDotsEffect(
+                  effect: ExpandingDotsEffect(
                     dotHeight: 6,
                     dotWidth: 6,
-                    activeDotColor: AppColors.primary,
+                    activeDotColor: Theme.of(context).primaryColor,
                     dotColor: Colors.white24,
                     spacing: 8,
                   ),

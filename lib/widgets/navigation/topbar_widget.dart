@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../services/notification_service.dart';
 
 class TopbarWidget extends StatefulWidget implements PreferredSizeWidget {
   final String title;
@@ -13,12 +14,9 @@ class TopbarWidget extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _TopbarWidgetState extends State<TopbarWidget> {
-  bool isMuted = false;
 
-  void toggleBell() {
-    setState(() {
-      isMuted = !isMuted;
-    });
+  void openNotifications() {
+    Navigator.pushNamed(context, "/notifications");
   }
 
   void openProfile() {
@@ -33,13 +31,45 @@ class _TopbarWidgetState extends State<TopbarWidget> {
 
       actions: [
 
-        // 🔔 BELL TOGGLE
-        IconButton(
-          icon: Icon(
-            isMuted ? Icons.notifications_off : Icons.notifications,
-            color: isMuted ? Colors.redAccent : Colors.white,
-          ),
-          onPressed: toggleBell,
+        // 🔔 BELL ICON with Badge
+        ValueListenableBuilder<int>(
+          valueListenable: NotificationService().unreadCountNotifier,
+          builder: (context, unreadCount, child) {
+            return Stack(
+              alignment: Alignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.notifications, color: Colors.white),
+                  onPressed: openNotifications,
+                ),
+                if (unreadCount > 0)
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Colors.redAccent,
+                        shape: BoxShape.circle,
+                      ),
+                      constraints: const BoxConstraints(
+                        minWidth: 16,
+                        minHeight: 16,
+                      ),
+                      child: Text(
+                        unreadCount > 9 ? '9+' : '$unreadCount',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
 
         // 👤 PROFILE OPEN

@@ -4,6 +4,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../constants/app_colors.dart';
 import '../../../widgets/common/primary_button.dart';
 import '../../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class SelfRatingScreen extends StatefulWidget {
   final Function(Map<String, int>) onSubmit;
@@ -60,24 +61,24 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? AppColors.warning.withOpacity(0.12)
+                          ? Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.12)
                           : Colors.white.withOpacity(0.02),
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: isSelected
-                            ? AppColors.warning.withOpacity(0.5)
+                            ? Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.5)
                             : Colors.white.withOpacity(0.05),
                         width: 1,
                       ),
                     ),
                     child: Icon(
                       isSelected ? Icons.star_rounded : Icons.star_outline_rounded,
-                      color: isSelected ? AppColors.warning : Colors.white24,
+                      color: isSelected ? Theme.of(context).extension<AppThemeExtension>()!.warning : Colors.white24,
                       size: 24,
                       shadows: isSelected
                           ? [
                               Shadow(
-                                color: AppColors.warning.withOpacity(0.6),
+                                color: Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.6),
                                 blurRadius: 10,
                               )
                             ]
@@ -98,7 +99,7 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -111,7 +112,7 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withOpacity(0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -127,13 +128,13 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.12),
+                      color: Theme.of(context).primaryColor.withOpacity(0.12),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Text(
                       "STEP 5 OF 6",
                       style: GoogleFonts.poppins(
-                        color: AppColors.primary,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 11,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.0,

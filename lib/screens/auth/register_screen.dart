@@ -9,6 +9,7 @@ import '../../services/firestore_service.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -110,7 +111,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(msg, style: GoogleFonts.poppins()),
-        backgroundColor: isError ? AppColors.error : AppColors.success,
+        backgroundColor: isError ? Theme.of(context).colorScheme.error : Theme.of(context).extension<AppThemeExtension>()!.success,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -120,7 +121,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Background Glows
@@ -134,7 +135,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.12),
+                    color: Theme.of(context).primaryColor.withOpacity(0.12),
                     blurRadius: 110,
                   ),
                 ],
@@ -151,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.08),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.08),
                     blurRadius: 125,
                   ),
                 ],
@@ -177,16 +178,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Container(
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
-                          color: AppColors.secondary.withOpacity(0.08),
+                          color: Theme.of(context).colorScheme.secondary.withOpacity(0.08),
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: AppColors.secondary.withOpacity(0.15),
+                            color: Theme.of(context).colorScheme.secondary.withOpacity(0.15),
                             width: 1.5,
                           ),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.person_add_rounded,
-                          color: AppColors.secondary,
+                          color: Theme.of(context).colorScheme.secondary,
                           size: 40,
                         ),
                       ).animate()
@@ -213,7 +214,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         "Start your AI-guided career journey",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                          color: AppColors.textSecondary,
+                          color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                           fontSize: 13,
                         ),
                       ).animate()
@@ -268,7 +269,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                           icon: Icon(
                             isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                            color: AppColors.textSecondary,
+                            color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                             size: 20,
                           ),
                         ),
@@ -291,7 +292,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                           icon: Icon(
                             isConfirmPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                            color: AppColors.textSecondary,
+                            color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                             size: 20,
                           ),
                         ),
@@ -317,7 +318,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Text(
                             "Already have an account?",
                             style: GoogleFonts.poppins(
-                              color: AppColors.textSecondary,
+                              color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                               fontSize: 14,
                             ),
                           ),
@@ -328,7 +329,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Text(
                               "Login",
                               style: GoogleFonts.poppins(
-                                color: AppColors.primary,
+                                color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                               ),

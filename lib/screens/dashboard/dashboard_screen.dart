@@ -7,6 +7,8 @@ import '../../widgets/cards/dashboard_card.dart';
 import '../../widgets/navigation/bottom_navbar.dart';
 import '../../widgets/animations/three_d_tilt_wrapper.dart';
 import '../../widgets/common/glass_container.dart';
+import '../../services/notification_service.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -18,20 +20,20 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int currentIndex = 0;
 
-  // 🔔 NOTIFICATION STATE
-  bool isMuted = false;
+  @override
+  void initState() {
+    super.initState();
+    NotificationService().initialize();
+  }
 
-  // 🔔 TOGGLE FUNCTION
-  void toggleBell() {
-    setState(() {
-      isMuted = !isMuted;
-    });
+  void openNotifications() {
+    Navigator.pushNamed(context, "/notifications");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       // ================= APPBAR =================
       appBar: AppBar(
@@ -46,13 +48,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
         actions: [
-          // 🔔 BELL ICON
-          IconButton(
-            onPressed: toggleBell,
-            icon: Icon(
-              isMuted ? Icons.notifications_off_rounded : Icons.notifications_rounded,
-              color: isMuted ? AppColors.error : Colors.white,
-            ),
+          // 🔔 BELL ICON with Badge
+          ValueListenableBuilder<int>(
+            valueListenable: NotificationService().unreadCountNotifier,
+            builder: (context, unreadCount, child) {
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.notifications_rounded, color: Colors.white),
+                    onPressed: openNotifications,
+                  ),
+                  if (unreadCount > 0)
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        padding: const EdgeInsets.all(4),
+                        decoration: const BoxDecoration(
+                          color: Colors.redAccent,
+                          shape: BoxShape.circle,
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 16,
+                          minHeight: 16,
+                        ),
+                        child: Text(
+                          unreadCount > 9 ? '9+' : '$unreadCount',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
 
           // 👤 PROFILE BUTTON
@@ -68,10 +102,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: AppColors.primaryGradient,
+                  gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: Theme.of(context).primaryColor.withOpacity(0.3),
                       blurRadius: 8,
                       spreadRadius: 1,
                     )
@@ -108,7 +142,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withOpacity(0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -125,7 +159,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -143,11 +177,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      gradient: AppColors.primaryGradient,
+                      gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                       borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primary.withOpacity(0.25),
+                          color: Theme.of(context).primaryColor.withOpacity(0.25),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -212,7 +246,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       title: "Skill Analyzer",
                       subtitle: "Track your skills",
                       value: "78%",
-                      color: AppColors.primary,
+                      color: Theme.of(context).primaryColor,
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -226,7 +260,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       title: "Resume ATS",
                       subtitle: "Resume analysis",
                       value: "85%",
-                      color: AppColors.success,
+                      color: Theme.of(context).extension<AppThemeExtension>()!.success,
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -240,7 +274,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       title: "AI Interview",
                       subtitle: "Mock interview",
                       value: "12 Qs",
-                      color: AppColors.warning,
+                      color: Theme.of(context).extension<AppThemeExtension>()!.warning,
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -254,7 +288,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       title: "Roadmap",
                       subtitle: "Track progress",
                       value: "Daily",
-                      color: AppColors.secondary,
+                      color: Theme.of(context).colorScheme.secondary,
                       onTap: () {
                         Navigator.pushNamed(
                           context,
@@ -289,12 +323,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: AppColors.warning.withOpacity(0.12),
+                                  color: Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.12),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.flag_rounded,
-                                  color: AppColors.warning,
+                                  color: Theme.of(context).extension<AppThemeExtension>()!.warning,
                                   size: 24,
                                 ),
                               ),
@@ -316,14 +350,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               Text(
                                 "2 of 4 goals completed",
                                 style: GoogleFonts.poppins(
-                                  color: AppColors.textSecondary,
+                                  color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                                   fontSize: 14,
                                 ),
                               ),
                               Text(
                                 "50%",
                                 style: GoogleFonts.poppins(
-                                  color: AppColors.success,
+                                  color: Theme.of(context).extension<AppThemeExtension>()!.success,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -333,12 +367,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           const SizedBox(height: 10),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(20),
-                            child: const LinearProgressIndicator(
+                            child: LinearProgressIndicator(
                               value: 0.5,
                               minHeight: 8,
                               backgroundColor: Colors.white12,
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                AppColors.success,
+                                Theme.of(context).extension<AppThemeExtension>()!.success,
                               ),
                             ),
                           ),
@@ -349,7 +383,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               Text(
                                 "Tap to view full plan",
                                 style: GoogleFonts.poppins(
-                                  color: AppColors.textSecondary.withOpacity(0.7),
+                                  color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withOpacity(0.7),
                                   fontSize: 13,
                                 ),
                               ),

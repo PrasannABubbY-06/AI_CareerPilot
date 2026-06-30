@@ -11,6 +11,7 @@ import '../../constants/app_colors.dart';
 import '../../services/jd_advanced_boolean_ats.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class JDMatchScreen extends StatefulWidget {
   const JDMatchScreen({super.key});
@@ -76,7 +77,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Resume uploaded successfully", style: GoogleFonts.poppins()),
-          backgroundColor: AppColors.success,
+          backgroundColor: Theme.of(context).extension<AppThemeExtension>()!.success,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -89,7 +90,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
   // PDF TEXT EXTRACT
   // =====================================================
 
-  Future<String> extractPdfTextFromBytes(Uint8List bytes) async {
+  static String _extractPdfText(Uint8List bytes) {
     try {
       final document = PdfDocument(inputBytes: bytes);
       final text = PdfTextExtractor(document).extractText();
@@ -98,6 +99,10 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
     } catch (e) {
       return "";
     }
+  }
+
+  Future<String> extractPdfTextFromBytes(Uint8List bytes) async {
+    return await compute(_extractPdfText, bytes);
   }
 
   // =====================================================
@@ -110,7 +115,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Upload resume & paste JD first", style: GoogleFonts.poppins()),
-          backgroundColor: AppColors.error,
+          backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -160,7 +165,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
             Text(
               title,
               style: GoogleFonts.poppins(
-                color: AppColors.primary,
+                color: Theme.of(context).primaryColor,
                 fontSize: 13,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 0.5,
@@ -188,7 +193,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -210,7 +215,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withOpacity(0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -227,7 +232,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.05),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.05),
                     blurRadius: 110,
                   ),
                 ],
@@ -246,11 +251,11 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(22),
                   decoration: BoxDecoration(
-                    gradient: AppColors.primaryGradient,
+                    gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.primary.withOpacity(0.2),
+                        color: Theme.of(context).primaryColor.withOpacity(0.2),
                         blurRadius: 16,
                         offset: const Offset(0, 6),
                       ),
@@ -291,7 +296,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                       color: Colors.white.withOpacity(0.02),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: AppColors.primary.withOpacity(0.4),
+                        color: Theme.of(context).primaryColor.withOpacity(0.4),
                         width: 1.5,
                       ),
                     ),
@@ -301,7 +306,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                         children: [
                           Icon(
                             Icons.cloud_upload_outlined,
-                            color: AppColors.primary,
+                            color: Theme.of(context).primaryColor,
                             size: 32,
                           ).animate(onPlay: (controller) => controller.repeat(reverse: true))
                            .moveY(begin: -3, end: 3, duration: 1.seconds),
@@ -311,7 +316,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                                 ? "Upload Resume (PDF, TXT)"
                                 : uploadedResumeName,
                             style: GoogleFonts.poppins(
-                              color: uploadedResumeName.isEmpty ? AppColors.textSecondary : Colors.white,
+                              color: uploadedResumeName.isEmpty ? (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey) : Colors.white,
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                             ),
@@ -362,7 +367,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                   text: "Analyze Match Score",
                   isLoading: loading,
                   onPressed: analyze,
-                  gradient: AppColors.primaryGradient,
+                  gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                 ),
 
                 const SizedBox(height: 30),
@@ -382,9 +387,9 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                           height: 80,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: (matchScore >= 70 ? AppColors.success : AppColors.warning).withOpacity(0.1),
+                            color: (matchScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning).withOpacity(0.1),
                             border: Border.all(
-                              color: (matchScore >= 70 ? AppColors.success : AppColors.warning),
+                              color: (matchScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning),
                               width: 2.0,
                             ),
                           ),
@@ -392,7 +397,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                             child: Text(
                               "$matchScore%",
                               style: GoogleFonts.poppins(
-                                color: (matchScore >= 70 ? AppColors.success : AppColors.warning),
+                                color: (matchScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning),
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),

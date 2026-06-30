@@ -4,13 +4,14 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../constants/app_colors.dart';
 import '../../../widgets/common/glass_container.dart';
 import 'models/question_model.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class QuestionScreen extends StatelessWidget {
   final List<QuestionModel> questions;
   final int currentIndex;
   final Function(int) onAnswer;
 
-  const QuestionScreen({
+  QuestionScreen({
     super.key,
     required this.questions,
     required this.currentIndex,
@@ -20,10 +21,10 @@ class QuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (questions.isEmpty) {
-      return const Scaffold(
-        backgroundColor: AppColors.scaffoldBg,
+      return Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: Center(
-          child: CircularProgressIndicator(color: AppColors.primary),
+          child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
         ),
       );
     }
@@ -48,7 +49,7 @@ class QuestionScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Background ambient glows
@@ -62,7 +63,7 @@ class QuestionScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
                     blurRadius: 100,
                   ),
                 ],
@@ -85,7 +86,7 @@ class QuestionScreen extends StatelessWidget {
                       Text(
                         "Assessment",
                         style: GoogleFonts.poppins(
-                          color: AppColors.textSecondary,
+                          color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1.0,
@@ -94,7 +95,7 @@ class QuestionScreen extends StatelessWidget {
                       Text(
                         "${currentIndex + 1} of ${questions.length}",
                         style: GoogleFonts.poppins(
-                          color: AppColors.primary,
+                          color: Theme.of(context).primaryColor,
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -111,8 +112,8 @@ class QuestionScreen extends StatelessWidget {
                       value: progress,
                       minHeight: 6,
                       backgroundColor: Colors.white12,
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        AppColors.primary,
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        Theme.of(context).primaryColor,
                       ),
                     ),
                   ),

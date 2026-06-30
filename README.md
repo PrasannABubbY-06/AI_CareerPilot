@@ -1,17 +1,80 @@
-# ai_careerpilot
+# AI CareerPilot 🚀
 
-A new Flutter project.
+AI CareerPilot is an AI-powered career guidance platform designed to help students and job seekers make informed career decisions through personalized recommendations, skill assessments, and AI-driven learning roadmaps.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- 🤖 AI Career Recommendations
+- 📊 Skill Gap Analysis
+- 🛣 Personalized Learning Roadmaps
+- 🎯 Career Path Suggestions
+- 📝 Resume Guidance
+- 🎤 Interview Preparation
+- 📚 Course Recommendations
+- 🔍 Career Exploration Tools
+- 📈 Progress Tracking
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠 Tech Stack
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+### Frontend
+- Flutter
+- Dart
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Backend
+- Firebase
+- Firestore
+- Firebase Authentication
+
+### AI Integration
+- Google Gemini API
+- Groq API
+
+## 📂 Project Structure
+
+```text
+lib/
+├── screens/
+├── widgets/
+├── services/
+├── models/
+├── providers/
+└── main.dart
+```
+
+## 🚀 Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/yourusername/AI-CareerPilot.git
+```
+
+### Install Dependencies
+
+```bash
+flutter pub get
+```
+
+### Run Application
+
+```bash
+flutter run
+```
+
+## Future Enhancements
+
+- AI Mock Interviews
+- Resume Builder
+- Job Recommendation Engine
+- Internship Finder
+- ATS Resume Analyzer
+
+## Author
+
+Prasanna
+Final Year B.Tech Student
+Passionate about AI, Web Development, and Career Technology
+
+## License
+
+MIT License

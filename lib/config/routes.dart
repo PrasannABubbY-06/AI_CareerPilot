@@ -6,6 +6,7 @@ import '../screens/profile/profile_screen.dart';
 import '../screens/ai_modules/resume_reviewer_screen.dart';
 import '../screens/ai_modules/mock_interview_screen.dart';
 import '../screens/ai_modules/roadmap_screen.dart';
+import '../screens/notifications/notifications_screen.dart';
 
 class AppRoutes {
   static const String dashboard = '/';
@@ -15,6 +16,7 @@ class AppRoutes {
   static const String resumeReview = '/resume-review';
   static const String mockInterview = '/mock-interview';
   static const String roadmap = '/roadmap';
+  static const String notifications = '/notifications';
 
   static Map<String, WidgetBuilder> routes = {
     dashboard: (context) => DashboardScreen(),
@@ -23,5 +25,6 @@ class AppRoutes {
     resumeReview: (context) => const ResumeReviewerScreen(),
     mockInterview: (context) => const MockInterviewScreen(),
     roadmap: (context) => const RoadmapScreen(),
+    notifications: (context) => const NotificationsScreen(),
   };
 }

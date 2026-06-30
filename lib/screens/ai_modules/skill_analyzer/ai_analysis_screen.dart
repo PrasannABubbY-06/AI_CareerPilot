@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../constants/app_colors.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class AiAnalysisScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -30,7 +31,7 @@ class _AiAnalysisScreenState extends State<AiAnalysisScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Radial Ambient Glow
@@ -42,7 +43,7 @@ class _AiAnalysisScreenState extends State<AiAnalysisScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withOpacity(0.06),
                     blurRadius: 100,
                   ),
                 ],
@@ -55,7 +56,7 @@ class _AiAnalysisScreenState extends State<AiAnalysisScreen> {
               children: [
                 // Futuristic double bounce loader
                 SpinKitDoubleBounce(
-                  color: AppColors.primary,
+                  color: Theme.of(context).primaryColor,
                   size: 80.0,
                 ).animate()
                  .scale(duration: 400.ms, curve: Curves.easeOutBack),
@@ -81,7 +82,7 @@ class _AiAnalysisScreenState extends State<AiAnalysisScreen> {
                 Text(
                   "Preparing custom skill assessment",
                   style: GoogleFonts.poppins(
-                    color: AppColors.textSecondary,
+                    color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                     fontSize: 14,
                   ),
                 ).animate()

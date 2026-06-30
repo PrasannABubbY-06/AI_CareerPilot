@@ -4,11 +4,12 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../constants/app_colors.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class RecruiterDashboard extends StatelessWidget {
   const RecruiterDashboard({super.key});
 
-  Widget buildCard({
+  Widget buildCard(BuildContext context, {
     required String title,
     required String subtitle,
     required Widget child,
@@ -33,7 +34,7 @@ class RecruiterDashboard extends StatelessWidget {
           Text(
             subtitle,
             style: GoogleFonts.poppins(
-              color: AppColors.textSecondary,
+              color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
               fontSize: 13,
             ),
           ),
@@ -46,21 +47,21 @@ class RecruiterDashboard extends StatelessWidget {
      .slideY(begin: 0.08, end: 0);
   }
 
-  Widget skillChip(String skill) {
+  Widget skillChip(BuildContext context, String skill) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: AppColors.primary.withOpacity(0.12),
+        color: Theme.of(context).primaryColor.withOpacity(0.12),
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          color: AppColors.primary.withOpacity(0.35),
+          color: Theme.of(context).primaryColor.withOpacity(0.35),
           width: 1,
         ),
       ),
       child: Text(
         skill,
         style: GoogleFonts.poppins(
-          color: AppColors.primary,
+          color: Theme.of(context).primaryColor,
           fontSize: 12,
           fontWeight: FontWeight.w600,
         ),
@@ -68,13 +69,13 @@ class RecruiterDashboard extends StatelessWidget {
     );
   }
 
-  Widget candidateTile({
+  Widget candidateTile(BuildContext context, {
     required String name,
     required int score,
     required String role,
   }) {
     final bool isExcellent = score >= 80;
-    final scoreColor = isExcellent ? AppColors.success : AppColors.warning;
+    final scoreColor = isExcellent ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 14),
@@ -92,13 +93,13 @@ class RecruiterDashboard extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: AppColors.primary.withOpacity(0.4),
+                color: Theme.of(context).primaryColor.withOpacity(0.4),
                 width: 1.5,
               ),
             ),
             child: CircleAvatar(
               radius: 24,
-              backgroundColor: AppColors.primary.withOpacity(0.12),
+              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.12),
               child: Text(
                 name[0],
                 style: GoogleFonts.poppins(
@@ -126,7 +127,7 @@ class RecruiterDashboard extends StatelessWidget {
                 Text(
                   role,
                   style: GoogleFonts.poppins(
-                    color: AppColors.textSecondary,
+                    color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                     fontSize: 12,
                   ),
                 ),
@@ -157,14 +158,14 @@ class RecruiterDashboard extends StatelessWidget {
     );
   }
 
-  Widget shortlistTile(String name, String skill) {
+  Widget shortlistTile(BuildContext context, String name, String skill) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          const Icon(
+          Icon(
             Icons.check_circle_outline_rounded,
-            color: AppColors.success,
+            color: Theme.of(context).extension<AppThemeExtension>()!.success,
             size: 20,
           ),
           const SizedBox(width: 12),
@@ -183,7 +184,7 @@ class RecruiterDashboard extends StatelessWidget {
                 Text(
                   skill,
                   style: GoogleFonts.poppins(
-                    color: AppColors.textSecondary,
+                    color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                     fontSize: 11,
                   ),
                 ),
@@ -198,7 +199,7 @@ class RecruiterDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -220,7 +221,7 @@ class RecruiterDashboard extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.05),
+                    color: Theme.of(context).primaryColor.withOpacity(0.05),
                     blurRadius: 120,
                   ),
                 ],
@@ -239,42 +240,46 @@ class RecruiterDashboard extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildCard(
-                          title: "ATS Scores",
-                          subtitle: "Top performing applicants",
-                          index: 0,
-                          child: Column(
-                            children: [
-                              candidateTile(
-                                name: "Rahul Sharma",
-                                score: 92,
-                                role: "Flutter Developer",
-                              ),
-                              candidateTile(
-                                name: "Sneha Reddy",
-                                score: 88,
-                                role: "Backend Developer",
-                              ),
-                              candidateTile(
-                                name: "Arjun Kumar",
-                                score: 79,
-                                role: "UI/UX Designer",
-                              ),
-                            ],
+                        Expanded(
+                          child: buildCard(context, 
+                            title: "ATS Scores",
+                            subtitle: "Top performing applicants",
+                            index: 0,
+                            child: Column(
+                              children: [
+                                candidateTile(context, 
+                                  name: "Rahul Sharma",
+                                  score: 92,
+                                  role: "Flutter Developer",
+                                ),
+                                candidateTile(context, 
+                                  name: "Sneha Reddy",
+                                  score: 88,
+                                  role: "Backend Developer",
+                                ),
+                                candidateTile(context, 
+                                  name: "Arjun Kumar",
+                                  score: 79,
+                                  role: "UI/UX Designer",
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(width: 18),
-                        buildCard(
-                          title: "Shortlist",
-                          subtitle: "AI shortlisted candidates",
-                          index: 1,
-                          child: Column(
-                            children: [
-                              shortlistTile("Rahul Sharma", "Flutter • Firebase"),
-                              shortlistTile("Sneha Reddy", "Node.js • MongoDB"),
-                              shortlistTile("Arjun Kumar", "Figma • UX Research"),
-                              shortlistTile("Meghana", "AWS • DevOps"),
-                            ],
+                        Expanded(
+                          child: buildCard(context, 
+                            title: "Shortlist",
+                            subtitle: "AI shortlisted candidates",
+                            index: 1,
+                            child: Column(
+                              children: [
+                                shortlistTile(context, "Rahul Sharma", "Flutter • Firebase"),
+                                shortlistTile(context, "Sneha Reddy", "Node.js • MongoDB"),
+                                shortlistTile(context, "Arjun Kumar", "Figma • UX Research"),
+                                shortlistTile(context, "Meghana", "AWS • DevOps"),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -286,46 +291,50 @@ class RecruiterDashboard extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildCard(
-                          title: "Skill Heatmap",
-                          subtitle: "Trending candidate skills",
-                          index: 2,
-                          child: Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
-                            children: [
-                              skillChip("Flutter"),
-                              skillChip("Firebase"),
-                              skillChip("React"),
-                              skillChip("Node.js"),
-                              skillChip("AWS"),
-                              skillChip("Docker"),
-                              skillChip("Figma"),
-                              skillChip("Python"),
-                            ],
+                        Expanded(
+                          child: buildCard(context, 
+                            title: "Skill Heatmap",
+                            subtitle: "Trending candidate skills",
+                            index: 2,
+                            child: Wrap(
+                              spacing: 10,
+                              runSpacing: 10,
+                              children: [
+                                skillChip(context, "Flutter"),
+                                skillChip(context, "Firebase"),
+                                skillChip(context, "React"),
+                                skillChip(context, "Node.js"),
+                                skillChip(context, "AWS"),
+                                skillChip(context, "Docker"),
+                                skillChip(context, "Figma"),
+                                skillChip(context, "Python"),
+                              ],
+                            ),
                           ),
                         ),
                         const SizedBox(width: 18),
-                        buildCard(
-                          title: "AI Insights",
-                          subtitle: "Smart hiring insights",
-                          index: 3,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              recommendationTile(
-                                Icons.star_rounded,
-                                "Candidates with Flutter + Firebase skills are highly suitable.",
-                              ),
-                              recommendationTile(
-                                Icons.psychology_rounded,
-                                "Top ATS resumes contain measurable achievements.",
-                              ),
-                              recommendationTile(
-                                Icons.trending_up_rounded,
-                                "AI predicts 84% hiring success for shortlisted applicants.",
-                              ),
-                            ],
+                        Expanded(
+                          child: buildCard(context, 
+                            title: "AI Insights",
+                            subtitle: "Smart hiring insights",
+                            index: 3,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                recommendationTile(context, 
+                                  Icons.star_rounded,
+                                  "Candidates with Flutter + Firebase skills are highly suitable.",
+                                ),
+                                recommendationTile(context, 
+                                  Icons.psychology_rounded,
+                                  "Top ATS resumes contain measurable achievements.",
+                                ),
+                                recommendationTile(context, 
+                                  Icons.trending_up_rounded,
+                                  "AI predicts 84% hiring success for shortlisted applicants.",
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -340,7 +349,7 @@ class RecruiterDashboard extends StatelessWidget {
     );
   }
 
-  Widget recommendationTile(IconData icon, String text) {
+  Widget recommendationTile(BuildContext context, IconData icon, String text) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
@@ -354,13 +363,13 @@ class RecruiterDashboard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppColors.primary, size: 20),
+          Icon(icon, color: Theme.of(context).primaryColor, size: 20),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               text,
               style: GoogleFonts.poppins(
-                color: AppColors.textSecondary,
+                color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                 fontSize: 12,
                 height: 1.4,
               ),

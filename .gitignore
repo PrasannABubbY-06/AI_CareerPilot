@@ -13,6 +13,11 @@
 migrate_working_dir/
 .env
 secrets.json
+lib/firebase_options.dart
+lib/config/api_keys.dart
+analyze_output*.txt
+final_analyze.txt
+refactor.py
 build/
 .dart_tool/
 node_modules/

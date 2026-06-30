@@ -8,6 +8,7 @@ import '../../services/roadmap_service.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class RoadmapScreen extends StatefulWidget {
   const RoadmapScreen({super.key});
@@ -27,7 +28,7 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Please enter a skill", style: GoogleFonts.poppins()),
-          backgroundColor: AppColors.error,
+          backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -39,7 +40,7 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
     if (generatedRoadmap == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          backgroundColor: AppColors.error,
+          backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
           content: Text("Skill not supported yet", style: GoogleFonts.poppins()),
         ),
@@ -71,17 +72,17 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.12),
+                    color: Theme.of(context).primaryColor.withOpacity(0.12),
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                      color: AppColors.primary.withOpacity(0.35),
+                      color: Theme.of(context).primaryColor.withOpacity(0.35),
                       width: 0.8,
                     ),
                   ),
                   child: Text(
                     "STEP ${index + 1}",
                     style: GoogleFonts.poppins(
-                      color: AppColors.primary,
+                      color: Theme.of(context).primaryColor,
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 0.5,
@@ -108,9 +109,9 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(
+                    Icon(
                       Icons.check_circle_outline_rounded,
-                      color: AppColors.success,
+                      color: Theme.of(context).extension<AppThemeExtension>()!.success,
                       size: 18,
                     ),
                     const SizedBox(width: 12),
@@ -119,7 +120,7 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                         item,
                         style: GoogleFonts.poppins(
                           fontSize: 14,
-                          color: AppColors.textSecondary,
+                          color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                           height: 1.4,
                         ),
                       ),
@@ -137,7 +138,7 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -159,7 +160,7 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
                     blurRadius: 120,
                   ),
                 ],
@@ -187,7 +188,7 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                 
                 Text(
                   "Get Complete Beginner to Advanced Roadmap",
-                  style: GoogleFonts.poppins(color: AppColors.textSecondary, fontSize: 13),
+                  style: GoogleFonts.poppins(color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey), fontSize: 13),
                   textAlign: TextAlign.center,
                 ),
                 
@@ -244,13 +245,13 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: AppColors.success.withOpacity(0.12),
+                                  color: Theme.of(context).extension<AppThemeExtension>()!.success.withOpacity(0.12),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Text(
                                   "Active",
                                   style: GoogleFonts.poppins(
-                                    color: AppColors.success,
+                                    color: Theme.of(context).extension<AppThemeExtension>()!.success,
                                     fontSize: 11,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -261,11 +262,11 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                           const SizedBox(height: 16),
                           ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: const LinearProgressIndicator(
+                            child: LinearProgressIndicator(
                               value: 0.25,
                               minHeight: 8,
                               backgroundColor: Colors.white12,
-                              valueColor: AlwaysStoppedAnimation<Color>(AppColors.success),
+                              valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).extension<AppThemeExtension>()!.success),
                             ),
                           ),
                           const SizedBox(height: 10),
@@ -275,14 +276,14 @@ class _RoadmapScreenState extends State<RoadmapScreen> {
                               Text(
                                 "25% Learning Progress",
                                 style: GoogleFonts.poppins(
-                                  color: AppColors.textSecondary,
+                                  color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                                   fontSize: 12,
                                 ),
                               ),
                               Text(
                                 "1 of 4 Steps Complete",
                                 style: GoogleFonts.poppins(
-                                  color: AppColors.primary,
+                                  color: Theme.of(context).primaryColor,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                 ),

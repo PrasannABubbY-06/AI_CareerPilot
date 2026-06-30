@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constants/app_colors.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class PrimaryButton extends StatefulWidget {
   final String text;
@@ -50,7 +51,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
   @override
   Widget build(BuildContext context) {
     final bool isDisabled = widget.onPressed == null || widget.isLoading;
-    final finalGradient = widget.gradient ?? AppColors.primaryGradient;
+    final finalGradient = widget.gradient ?? Theme.of(context).extension<AppThemeExtension>()!.primaryGradient;
 
     return GestureDetector(
       onTapDown: isDisabled
@@ -88,7 +89,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
                 ? []
                 : [
                     BoxShadow(
-                      color: (widget.gradient?.colors.first ?? AppColors.primary)
+                      color: (widget.gradient?.colors.first ?? Theme.of(context).primaryColor)
                           .withOpacity(0.3),
                       blurRadius: 18,
                       offset: const Offset(0, 6),

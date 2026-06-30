@@ -7,6 +7,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../constants/app_colors.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/glass_container.dart';
+import '../../services/notification_service.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class WeeklyGoalsScreen extends StatefulWidget {
   const WeeklyGoalsScreen({super.key});
@@ -60,6 +62,14 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
       goals[index]["done"] = !goals[index]["done"];
     });
     saveGoals();
+    
+    if (goals[index]["done"] == true) {
+      NotificationService().sendNotification(
+        title: "Goal Completed! 🎉",
+        message: 'You completed "${goals[index]["title"]}". Keep it up!',
+        category: NotificationCategory.goalProgress,
+      );
+    }
   }
 
   void deleteTask(int index) {
@@ -75,14 +85,15 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
     double progress = goals.isEmpty ? 0 : completedGoals / goals.length;
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
           "Weekly Goals",
-          style: GoogleFonts.poppins(fontWeight: FontWeight.bold),
+          style: GoogleFonts.poppins(fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.bodyLarge?.color),
         ),
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: Stack(
         children: [
@@ -97,7 +108,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withOpacity(0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -115,11 +126,11 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      gradient: AppColors.primaryGradient,
+                      gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                       borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primary.withOpacity(0.2),
+                          color: Theme.of(context).primaryColor.withOpacity(0.2),
                           blurRadius: 16,
                           offset: const Offset(0, 6),
                         ),
@@ -143,8 +154,8 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                             value: progress,
                             minHeight: 10,
                             backgroundColor: Colors.white24,
-                            valueColor: const AlwaysStoppedAnimation<Color>(
-                              AppColors.success,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).extension<AppThemeExtension>()!.success,
                             ),
                           ),
                         ),
@@ -171,11 +182,11 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                       child: Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          gradient: AppColors.primaryGradient,
+                          gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                           borderRadius: BorderRadius.circular(18),
                           boxShadow: [
                             BoxShadow(
-                              color: AppColors.primary.withOpacity(0.3),
+                              color: Theme.of(context).primaryColor.withOpacity(0.3),
                               blurRadius: 12,
                               offset: const Offset(0, 4),
                             ),
@@ -200,7 +211,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                           child: Text(
                             "No goals added for this week yet.",
                             style: GoogleFonts.poppins(
-                              color: AppColors.textSecondary,
+                              color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                               fontSize: 15,
                             ),
                           ),
@@ -219,7 +230,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                 borderRadius: BorderRadius.circular(22),
                                 border: Border.all(
                                   color: isDone
-                                      ? AppColors.success.withOpacity(0.2)
+                                      ? Theme.of(context).extension<AppThemeExtension>()!.success.withOpacity(0.2)
                                       : Colors.white.withOpacity(0.08),
                                 ),
                                 child: Row(
@@ -232,11 +243,11 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: isDone
-                                              ? AppColors.success.withOpacity(0.12)
+                                              ? Theme.of(context).extension<AppThemeExtension>()!.success.withOpacity(0.12)
                                               : Colors.white.withOpacity(0.04),
                                           border: Border.all(
                                             color: isDone
-                                                ? AppColors.success
+                                                ? Theme.of(context).extension<AppThemeExtension>()!.success
                                                 : Colors.white24,
                                             width: 1.5,
                                           ),
@@ -246,7 +257,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                               ? Icons.check_rounded
                                               : Icons.circle,
                                           color: isDone
-                                              ? AppColors.success
+                                              ? Theme.of(context).extension<AppThemeExtension>()!.success
                                               : Colors.transparent,
                                           size: 20,
                                         ),
@@ -258,8 +269,8 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                         goal["title"],
                                         style: GoogleFonts.poppins(
                                           color: isDone
-                                              ? AppColors.textSecondary.withOpacity(0.5)
-                                              : Colors.white,
+                                              ? Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.5)
+                                              : Theme.of(context).textTheme.bodyLarge?.color,
                                           fontSize: 15,
                                           fontWeight: isDone ? FontWeight.w400 : FontWeight.w600,
                                           decoration: isDone
@@ -273,12 +284,12 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                       child: Container(
                                         padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: AppColors.error.withOpacity(0.08),
+                                          color: Theme.of(context).colorScheme.error.withOpacity(0.08),
                                           shape: BoxShape.circle,
                                         ),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.delete_outline_rounded,
-                                          color: AppColors.error,
+                                          color: Theme.of(context).colorScheme.error,
                                           size: 18,
                                         ),
                                       ),

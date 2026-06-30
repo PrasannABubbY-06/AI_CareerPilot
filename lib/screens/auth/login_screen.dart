@@ -9,6 +9,7 @@ import '../../services/firestore_service.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -78,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(msg, style: GoogleFonts.poppins()),
-        backgroundColor: AppColors.error,
+        backgroundColor: Theme.of(context).colorScheme.error,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Background Glows
@@ -102,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.12),
+                    color: Theme.of(context).primaryColor.withOpacity(0.12),
                     blurRadius: 100,
                   ),
                 ],
@@ -119,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.08),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -145,16 +146,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.08),
+                          color: Theme.of(context).primaryColor.withOpacity(0.08),
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: AppColors.primary.withOpacity(0.15),
+                            color: Theme.of(context).primaryColor.withOpacity(0.15),
                             width: 1.5,
                           ),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.radar_rounded, // Futuristic branding icon
-                          color: AppColors.primary,
+                          color: Theme.of(context).primaryColor,
                           size: 50,
                         ),
                       ).animate()
@@ -182,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Text(
                         "Professional Career Intelligence",
                         style: GoogleFonts.poppins(
-                          color: AppColors.textSecondary,
+                          color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                           fontSize: 14,
                         ),
                       ).animate()
@@ -217,7 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                           icon: Icon(
                             isPasswordVisible ? Icons.visibility_outlined : Icons.visibility_off_outlined,
-                            color: AppColors.textSecondary,
+                            color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                             size: 20,
                           ),
                         ),
@@ -245,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Text(
                             "New user?",
                             style: GoogleFonts.poppins(
-                              color: AppColors.textSecondary,
+                              color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                               fontSize: 14,
                             ),
                           ),
@@ -256,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text(
                               "Create Account",
                               style: GoogleFonts.poppins(
-                                color: AppColors.primary,
+                                color: Theme.of(context).primaryColor,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 14,
                               ),

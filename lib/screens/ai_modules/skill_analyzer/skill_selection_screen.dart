@@ -5,6 +5,7 @@ import '../../../constants/app_colors.dart';
 import '../../../widgets/common/custom_textfield.dart';
 import '../../../widgets/common/primary_button.dart';
 import '../../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class SkillSelectionScreen extends StatefulWidget {
   final Function(String) onNext;
@@ -24,7 +25,7 @@ class _SkillSelectionScreenState extends State<SkillSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Background Glow
@@ -38,7 +39,7 @@ class _SkillSelectionScreenState extends State<SkillSelectionScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: Theme.of(context).primaryColor.withOpacity(0.1),
                     blurRadius: 100,
                   ),
                 ],
@@ -61,13 +62,13 @@ class _SkillSelectionScreenState extends State<SkillSelectionScreen> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: AppColors.primary.withOpacity(0.12),
+                          color: Theme.of(context).primaryColor.withOpacity(0.12),
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(
                           "STEP 1 OF 6",
                           style: GoogleFonts.poppins(
-                            color: AppColors.primary,
+                            color: Theme.of(context).primaryColor,
                             fontSize: 11,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1.0,

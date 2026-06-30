@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../constants/app_colors.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -57,7 +58,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         boxShadow: _isFocused
             ? [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.15),
+                  color: Theme.of(context).primaryColor.withOpacity(0.15),
                   blurRadius: 16,
                   spreadRadius: 1,
                 ),
@@ -71,18 +72,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
         keyboardType: widget.keyboardType,
         validator: widget.validator,
         onChanged: widget.onChanged,
-        style: GoogleFonts.poppins(color: AppColors.textPrimary, fontSize: 15),
-        cursorColor: AppColors.primary,
+        style: GoogleFonts.poppins(color: (Theme.of(context).textTheme.bodyLarge?.color ?? Colors.white), fontSize: 15),
+        cursorColor: Theme.of(context).primaryColor,
         decoration: InputDecoration(
           hintText: widget.hintText,
           hintStyle: GoogleFonts.poppins(
-            color: AppColors.textSecondary.withOpacity(0.7),
+            color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withOpacity(0.7),
             fontSize: 14,
           ),
           prefixIcon: widget.prefixIcon != null
               ? Icon(
                   widget.prefixIcon,
-                  color: _isFocused ? AppColors.primary : AppColors.textSecondary,
+                  color: _isFocused ? Theme.of(context).primaryColor : (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                   size: 22,
                 )
               : null,
@@ -99,22 +100,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
-            borderSide: const BorderSide(
-              color: AppColors.primary,
+            borderSide: BorderSide(
+              color: Theme.of(context).primaryColor,
               width: 1.5,
             ),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
             borderSide: BorderSide(
-              color: AppColors.error.withOpacity(0.5),
+              color: Theme.of(context).colorScheme.error.withOpacity(0.5),
               width: 1,
             ),
           ),
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
-            borderSide: const BorderSide(
-              color: AppColors.error,
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.error,
               width: 1.5,
             ),
           ),

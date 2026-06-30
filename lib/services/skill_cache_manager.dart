@@ -18,7 +18,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete Flutter Course on YouTube](https://www.youtube.com/watch?v=VPvVD8t02U8)
 - 📝 [Official Flutter Documentation](https://docs.flutter.dev)
-- 💻 [Flutter Core GitHub Repository](https://github.com/flutter/flutter)
+- 📖 [GeeksforGeeks Flutter Notes](https://www.geeksforgeeks.org/flutter-tutorial/)
+- 💻 [Flutter Practice Projects](https://github.com/flutter/samples)
 """,
     "dart": """
 ### 🗺️ Dart Roadmap:
@@ -28,21 +29,23 @@ class SkillCacheManager {
 - **Step 4**: Understand asynchronous programming (async, await, Future, Streams).
 - **Step 5**: Learn Dart collection methods and type system.
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete Dart Course on YouTube](https://www.youtube.com/watch?v=5xlVP0II8Go)
+- 📺 [Watch Complete Dart Course on YouTube](https://www.youtube.com/watch?v=JZukfxvc7Mc)
 - 📝 [Official Dart Documentation](https://dart.dev/guides)
-- 💻 [Dart SDK GitHub Repository](https://github.com/dart-lang/sdk)
+- 📖 [GeeksforGeeks Dart Notes](https://www.geeksforgeeks.org/dart-tutorial/)
+- 💻 [DartPad Practice](https://dartpad.dev/)
 """,
     "firebase": """
 ### 🗺️ Firebase Roadmap:
 - **Step 1**: Set up a Firebase project and connect it to your application.
 - **Step 2**: Learn Authentication (Email/Password, Google Sign-in).
 - **Step 3**: Master Cloud Firestore for real-time CRUD operations and querying.
-- **Step 4**: Implement Firebase Storage for uploading and downloading files (images, audio).
+- **Step 4**: Implement Firebase Storage for uploading and downloading files.
 - **Step 5**: Use Firebase Cloud Functions for backend logic and notifications.
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete Firebase Course on YouTube](https://www.youtube.com/watch?v=ErP_xFyF1jY)
+- 📺 [Watch Complete Firebase Course on YouTube](https://www.youtube.com/watch?v=_L8j-ZC83y4)
 - 📝 [Official Firebase Documentation](https://firebase.google.com/docs)
-- 💻 [Firebase Flutter SDK GitHub Repository](https://github.com/firebase/flutterfire)
+- 📖 [FreeCodeCamp Firebase Notes](https://www.freecodecamp.org/news/tag/firebase/)
+- 💻 [Firebase Codelabs](https://firebase.google.com/codelabs)
 """,
     "react": """
 ### 🗺️ React Roadmap:
@@ -54,7 +57,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete React Course on YouTube](https://www.youtube.com/watch?v=Ke90Tje7VS0)
 - 📝 [Official React Documentation](https://react.dev)
-- 💻 [React Library GitHub Repository](https://github.com/facebook/react)
+- 📖 [GeeksforGeeks React Notes](https://www.geeksforgeeks.org/reactjs-tutorial/)
+- 💻 [React Practice Challenges](https://github.com/sudheerj/reactjs-interview-questions)
 """,
     "javascript": """
 ### 🗺️ JavaScript Roadmap:
@@ -66,7 +70,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete JavaScript Course on YouTube](https://www.youtube.com/watch?v=W6NZfCO5SIk)
 - 📝 [MDN Web Docs for JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- 💻 [Modern JS Tutorial Code GitHub](https://github.com/javascript-tutorial/en.javascript.info)
+- 📖 [W3Schools JavaScript Notes](https://www.w3schools.com/js/)
+- 💻 [JavaScript30 Practice Projects](https://javascript30.com/)
 """,
     "typescript": """
 ### 🗺️ TypeScript Roadmap:
@@ -78,7 +83,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete TypeScript Course on YouTube](https://www.youtube.com/watch?v=d56mG7DezGs)
 - 📝 [Official TypeScript Documentation](https://www.typescriptlang.org/docs/)
-- 💻 [TypeScript Compiler GitHub Repository](https://github.com/microsoft/TypeScript)
+- 📖 [FreeCodeCamp TypeScript Notes](https://www.freecodecamp.org/news/learn-typescript-beginners-guide/)
+- 💻 [TypeScript Exercises](https://typescript-exercises.github.io/)
 """,
     "python": """
 ### 🗺️ Python Roadmap:
@@ -90,7 +96,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete Python Course on YouTube](https://www.youtube.com/watch?v=_uQrJ0TkZlc)
 - 📝 [Official Python Documentation](https://docs.python.org/3/)
-- 💻 [Awesome Python Resources GitHub](https://github.com/vinta/awesome-python)
+- 📖 [GeeksforGeeks Python Notes](https://www.geeksforgeeks.org/python-programming-language/)
+- 💻 [HackerRank Python Practice](https://www.hackerrank.com/domains/python)
 """,
     "java": """
 ### 🗺️ Java Roadmap:
@@ -102,7 +109,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete Java Course on YouTube](https://www.youtube.com/watch?v=A74TOX803D0)
 - 📝 [Official Oracle Java Documentation](https://docs.oracle.com/en/java/)
-- 💻 [Algorithms & DS in Java GitHub](https://github.com/williamfiset/Algorithms)
+- 📖 [GeeksforGeeks Java Notes](https://www.geeksforgeeks.org/java/)
+- 💻 [LeetCode Java Practice](https://leetcode.com/)
 """,
     "c": """
 ### 🗺️ C Roadmap:
@@ -114,7 +122,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete C Programming Course on YouTube](https://www.youtube.com/watch?v=KJgsSFOSQv0)
 - 📝 [C Reference Documentation](https://en.cppreference.com/w/c)
-- 💻 [C Algorithms Implementation GitHub](https://github.com/TheAlgorithms/C)
+- 📖 [GeeksforGeeks C Notes](https://www.geeksforgeeks.org/c-programming-language/)
+- 💻 [HackerRank C Practice](https://www.hackerrank.com/domains/c)
 """,
     "c++": """
 ### 🗺️ C++ Roadmap:
@@ -126,7 +135,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete C++ Course on YouTube](https://www.youtube.com/watch?v=vLnPwxZdW4Y)
 - 📝 [C++ Standard Reference Docs](https://en.cppreference.com/w/cpp)
-- 💻 [C++ Coding Guidelines GitHub](https://github.com/isocpp/CppCoreGuidelines)
+- 📖 [GeeksforGeeks C++ Notes](https://www.geeksforgeeks.org/cpp-tutorial/)
+- 💻 [HackerRank C++ Practice](https://www.hackerrank.com/domains/cpp)
 """,
     "sql": """
 ### 🗺️ SQL Roadmap:
@@ -137,8 +147,9 @@ class SkillCacheManager {
 - **Step 5**: Learn indexes, database views, and transaction controls.
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete SQL Course on YouTube](https://www.youtube.com/watch?v=HXV3zeQKqGY)
-- 📝 [W3Schools SQL Reference Tutorial](https://www.w3schools.com/sql/)
-- 💻 [SQL Practice Exercises GitHub](https://github.com/BenL92/SQL-practice-exercises)
+- 📝 [W3Schools SQL Reference](https://www.w3schools.com/sql/)
+- 📖 [GeeksforGeeks SQL Notes](https://www.geeksforgeeks.org/sql-tutorial/)
+- 💻 [SQLBolt Practice](https://sqlbolt.com/)
 """,
     "mysql": """
 ### 🗺️ MySQL Roadmap:
@@ -150,7 +161,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete MySQL Course on YouTube](https://www.youtube.com/watch?v=7S_tz1z_5bA)
 - 📝 [Official MySQL Documentation Reference](https://dev.mysql.com/doc/)
-- 💻 [MySQL Sample Databases GitHub](https://github.com/datacharmer/test_db)
+- 📖 [GeeksforGeeks MySQL Notes](https://www.geeksforgeeks.org/mysql-tutorial/)
+- 💻 [HackerRank SQL Practice](https://www.hackerrank.com/domains/sql)
 """,
     "mongodb": """
 ### 🗺️ MongoDB Roadmap:
@@ -160,9 +172,10 @@ class SkillCacheManager {
 - **Step 4**: Implement indexes for query performance optimization.
 - **Step 5**: Understand MongoDB schemas design validation and replica sets.
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete MongoDB Course on YouTube](https://www.youtube.com/watch?v=ExcRbCD8724)
+- 📺 [Watch Complete MongoDB Course on YouTube](https://www.youtube.com/watch?v=c2M-rlkkT5o)
 - 📝 [Official MongoDB Documentation](https://www.mongodb.com/docs/)
-- 💻 [MongoDB Node Developer Guide GitHub](https://github.com/mongodb-developer/nodejs-quickstart)
+- 📖 [GeeksforGeeks MongoDB Notes](https://www.geeksforgeeks.org/mongodb/)
+- 💻 [MongoDB University](https://learn.mongodb.com/)
 """,
     "node.js": """
 ### 🗺️ Node.js Roadmap:
@@ -174,6 +187,7 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Node.js Full Course on YouTube](https://www.youtube.com/watch?v=Oe421EPjeBE)
 - 📝 [Official Node.js Docs Guide](https://nodejs.org/en/docs/)
+- 📖 [GeeksforGeeks Node.js Notes](https://www.geeksforgeeks.org/nodejs/)
 - 💻 [Node.js Best Practices Repository GitHub](https://github.com/goldbergyoni/nodebestpractices)
 """,
     "express.js": """
@@ -186,6 +200,7 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete Express.js Course on YouTube](https://www.youtube.com/watch?v=SccSCuHhOw0)
 - 📝 [Official Express.js Guide Documentation](https://expressjs.com)
+- 📖 [MDN Express.js Notes](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs)
 - 💻 [Express API Boilerplate GitHub](https://github.com/hagopj13/node-express-boilerplate)
 """,
     "git": """
@@ -198,7 +213,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete Git Course on YouTube](https://www.youtube.com/watch?v=RGOj5yH7evk)
 - 📝 [Official Git Book Reference Docs](https://git-scm.com/doc)
-- 💻 [Git Flight Rules Guide GitHub](https://github.com/k88hudson/git-flight-rules)
+- 📖 [Atlassian Git Tutorial Notes](https://www.atlassian.com/git/tutorials)
+- 💻 [Git Branching Practice](https://learngitbranching.js.org/)
 """,
     "github": """
 ### 🗺️ GitHub Roadmap:
@@ -208,8 +224,9 @@ class SkillCacheManager {
 - **Step 4**: Understand GitHub Pages hosting and release tags.
 - **Step 5**: Learn basic GitHub Actions workflows for CI/CD automation.
 ### 📚 Recommended Resources:
-- 📺 [Watch GitHub Guide Course on YouTube](https://www.youtube.com/watch?v=apGV9Ad7XYY)
+- 📺 [Watch GitHub Guide Course on YouTube](https://www.youtube.com/watch?v=Ez8F0nW6S-w)
 - 📝 [Official GitHub Documentation Help](https://docs.github.com)
+- 📖 [GitHub Skills Tutorial](https://skills.github.com/)
 - 💻 [Interactive Git & GitHub Exercises GitHub](https://github.com/jlord/git-it-electron)
 """,
     "data structures": """
@@ -220,9 +237,23 @@ class SkillCacheManager {
 - **Step 4**: Learn Trees (Binary Search Tree, AVL, Tries, Heaps).
 - **Step 5**: Understand Hash Tables, hash functions, and collision resolution techniques.
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete Data Structures Course on YouTube](https://www.youtube.com/watch?v=8hly31xKjhc)
+- 📺 [Watch Complete Data Structures Course on YouTube](https://www.youtube.com/watch?v=8hly31xKli0)
 - 📝 [GeeksforGeeks Data Structures Guide](https://www.geeksforgeeks.org/data-structures/)
-- 💻 [Data Structures Visualizations & Code GitHub](https://github.com/loiane/javascript-datastructures-algorithms)
+- 📖 [FreeCodeCamp DSA Notes](https://www.freecodecamp.org/news/data-structures-and-algorithms-guide/)
+- 💻 [LeetCode Practice](https://leetcode.com/)
+""",
+    "dsa": """
+### 🗺️ DSA Roadmap:
+- **Step 1**: Master arrays, string manipulation, and list implementations.
+- **Step 2**: Learn fundamental algorithms (Sorting, Searching, Recursion).
+- **Step 3**: Understand Linked Lists, Stacks, and Queues.
+- **Step 4**: Learn Trees, Graphs, and Hash Tables.
+- **Step 5**: Master advanced techniques (Dynamic Programming, Greedy Algorithms).
+### 📚 Recommended Resources:
+- 📺 [Watch Complete DSA Course on YouTube](https://www.youtube.com/watch?v=8hly31xKli0)
+- 📝 [GeeksforGeeks DSA Guide](https://www.geeksforgeeks.org/data-structures/)
+- 📖 [W3Schools DSA Notes](https://www.w3schools.com/dsa/)
+- 💻 [LeetCode Practice](https://leetcode.com/)
 """,
     "algorithms": """
 ### 🗺️ Algorithms Roadmap:
@@ -232,9 +263,10 @@ class SkillCacheManager {
 - **Step 4**: Master Dynamic Programming and Recursion.
 - **Step 5**: Understand Graph algorithms (BFS, DFS, Dijkstra's Shortest Path).
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete Algorithms Course on YouTube](https://www.youtube.com/watch?v=0IAPZCpC6PE)
-- 📝 [Visualizations of Algorithms](https://visualgo.net/en)
-- 💻 [Interactive Coding Challenges & Solutions GitHub](https://github.com/donnemartin/interactive-coding-challenges)
+- 📺 [Watch Complete Algorithms Course on YouTube](https://www.youtube.com/watch?v=0IAPZzGSbME)
+- 📝 [GeeksforGeeks Algorithms Guide](https://www.geeksforgeeks.org/fundamentals-of-algorithms/)
+- 📖 [Visualizations of Algorithms](https://visualgo.net/en)
+- 💻 [LeetCode Algorithm Practice](https://leetcode.com/)
 """,
     "machine learning": """
 ### 🗺️ Machine Learning Roadmap:
@@ -244,9 +276,23 @@ class SkillCacheManager {
 - **Step 4**: Learn Unsupervised Learning (K-Means Clustering, PCA).
 - **Step 5**: Learn Scikit-Learn library and model validation metrics.
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete Machine Learning Course on YouTube](https://www.youtube.com/watch?v=GwIo3gToViM)
+- 📺 [Watch Complete Machine Learning Course on YouTube](https://www.youtube.com/watch?v=JxgmHe2NyeY)
 - 📝 [Scikit-Learn Official Tutorials documentation](https://scikit-learn.org/stable/user_guide.html)
-- 💻 [Machine Learning Notebooks Tutorial GitHub](https://github.com/ageron/handson-ml3)
+- 📖 [GeeksforGeeks ML Notes](https://www.geeksforgeeks.org/machine-learning/)
+- 💻 [Kaggle Practice Datasets](https://www.kaggle.com/)
+""",
+    "ml": """
+### 🗺️ Machine Learning Roadmap:
+- **Step 1**: Master Linear Algebra, calculus, and basic statistics.
+- **Step 2**: Learn Python data libraries: NumPy, Pandas, Matplotlib, Seaborn.
+- **Step 3**: Master Supervised Learning (Regression, Classification, SVM, Decision Trees).
+- **Step 4**: Learn Unsupervised Learning (K-Means Clustering, PCA).
+- **Step 5**: Learn Scikit-Learn library and model validation metrics.
+### 📚 Recommended Resources:
+- 📺 [Watch Complete Machine Learning Course on YouTube](https://www.youtube.com/watch?v=JxgmHe2NyeY)
+- 📝 [Scikit-Learn Official Tutorials documentation](https://scikit-learn.org/stable/user_guide.html)
+- 📖 [GeeksforGeeks ML Notes](https://www.geeksforgeeks.org/machine-learning/)
+- 💻 [Kaggle Practice Datasets](https://www.kaggle.com/)
 """,
     "deep learning": """
 ### 🗺️ Deep Learning Roadmap:
@@ -256,9 +302,10 @@ class SkillCacheManager {
 - **Step 4**: Master Recurrent Neural Networks (RNNs) and LSTMs for sequences.
 - **Step 5**: Learn deep learning frameworks (TensorFlow, PyTorch).
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete Deep Learning Course on YouTube](https://www.youtube.com/watch?v=vySlY2DlhTs)
+- 📺 [Watch Complete Deep Learning Course on YouTube](https://www.youtube.com/watch?v=d2kxUVwWWwU)
 - 📝 [Deep Learning Book by Goodfellow Reference](https://www.deeplearningbook.org)
-- 💻 [Deep Learning Exercises & Code GitHub](https://github.com/lexfridman/mit-deep-learning)
+- 📖 [GeeksforGeeks Deep Learning Notes](https://www.geeksforgeeks.org/deep-learning-tutorial/)
+- 💻 [Kaggle Deep Learning Practice](https://www.kaggle.com/learn/deep-learning)
 """,
     "ai": """
 ### 🗺️ Artificial Intelligence Roadmap:
@@ -268,8 +315,9 @@ class SkillCacheManager {
 - **Step 4**: Understand neural network architectures and reinforcement learning.
 - **Step 5**: Practice implementing simple agents and logic networks.
 ### 📚 Recommended Resources:
-- 📺 [Watch Artificial Intelligence Course on YouTube](https://www.youtube.com/watch?v=5nggAp20a0Q)
+- 📺 [Watch Artificial Intelligence Course on YouTube](https://www.youtube.com/watch?v=JMUxmLyrhSk)
 - 📝 [Stanford AI Course Notes & Material](http://web.stanford.edu/class/cs221/)
+- 📖 [GeeksforGeeks AI Notes](https://www.geeksforgeeks.org/artificial-intelligence-an-introduction/)
 - 💻 [AIMA Python Code Implementations GitHub](https://github.com/aimacode/aima-python)
 """,
     "ui/ux": """
@@ -280,8 +328,9 @@ class SkillCacheManager {
 - **Step 4**: Master Prototyping, usability testing, and design systems.
 - **Step 5**: Understand accessibility standards (WCAG guidelines).
 ### 📚 Recommended Resources:
-- 📺 [Watch Complete UI/UX Design Course on YouTube](https://www.youtube.com/watch?v=c9Wg6A_eWIU)
+- 📺 [Watch Complete UI/UX Design Course on YouTube](https://www.youtube.com/watch?v=uQsyobT2Rv8)
 - 📝 [Nielsen Norman Group UX Articles Reference](https://www.nngroup.com/articles/)
+- 📖 [Google UX Design Certificate Notes](https://grow.google/certificates/ux-design/)
 - 💻 [Material Design Systems Guidelines](https://m3.material.io)
 """,
     "figma": """
@@ -292,8 +341,9 @@ class SkillCacheManager {
 - **Step 4**: Create interactive prototyping, micro-interactions, and smart animate.
 - **Step 5**: Learn how to structure design handoffs and inspect code properties.
 ### 📚 Recommended Resources:
-- 📺 [Watch Figma Prototyping Course on YouTube](https://www.youtube.com/watch?v=FTFaQW1ZWY4)
+- 📺 [Watch Figma Prototyping Course on YouTube](https://www.youtube.com/watch?v=uQsyobT2Rv8)
 - 📝 [Official Figma Help Guide](https://help.figma.com/hc/en-us)
+- 📖 [Figma Best Practices Notes](https://www.figma.com/best-practices/)
 - 💻 [Figma Community Design Files & Kits](https://www.figma.com/community)
 """,
     "cloud": """
@@ -306,7 +356,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Cloud Computing Course on YouTube](https://www.youtube.com/watch?v=2LaAJq1lB1Q)
 - 📝 [AWS Cloud Fundamentals Documentation Guide](https://docs.aws.amazon.com)
-- 💻 [Google Cloud Platform Code Examples GitHub](https://github.com/GoogleCloudPlatform/java-docs-samples)
+- 📖 [GeeksforGeeks Cloud Computing Notes](https://www.geeksforgeeks.org/cloud-computing/)
+- 💻 [Google Cloud Skills Boost](https://www.cloudskillsboost.google/)
 """,
     "devops": """
 ### 🗺️ DevOps Roadmap:
@@ -318,6 +369,7 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch DevOps Training Course on YouTube](https://www.youtube.com/watch?v=hQcFE0RD0cQ)
 - 📝 [DevOps Interactive Roadmap Resource](https://roadmap.sh/devops)
+- 📖 [GeeksforGeeks DevOps Notes](https://www.geeksforgeeks.org/devops-tutorial/)
 - 💻 [Awesome DevOps Tools List GitHub](https://github.com/dastergon/awesome-devops)
 """,
     "cyber security": """
@@ -330,7 +382,8 @@ class SkillCacheManager {
 ### 📚 Recommended Resources:
 - 📺 [Watch Complete Cybersecurity Course on YouTube](https://www.youtube.com/watch?v=3Kq1MIfTWCE)
 - 📝 [OWASP Cheat Sheet Reference Series](https://cheatsheetseries.owasp.org)
-- 💻 [Awesome Security Collections GitHub](https://github.com/sbilly/awesome-security)
+- 📖 [GeeksforGeeks Cyber Security Notes](https://www.geeksforgeeks.org/cyber-security-tutorial/)
+- 💻 [TryHackMe Cyber Security Practice](https://tryhackme.com/)
 """
   };
 

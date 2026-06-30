@@ -9,6 +9,7 @@ import '../../../widgets/common/glass_container.dart';
 import 'models/result_model.dart';
 import 'models/roadmap_model.dart';
 import 'services/roadmap_service.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class ResultScreen extends StatelessWidget {
   final ResultModel? result;
@@ -20,14 +21,14 @@ class ResultScreen extends StatelessWidget {
     required this.onRestart,
   });
 
-  Color priorityColor(String priority) {
+  Color priorityColor(BuildContext context, String priority) {
     switch (priority) {
       case "High":
-        return AppColors.error;
+        return Theme.of(context).colorScheme.error;
       case "Medium":
-        return AppColors.warning;
+        return Theme.of(context).extension<AppThemeExtension>()!.warning;
       default:
-        return AppColors.success;
+        return Theme.of(context).extension<AppThemeExtension>()!.success;
     }
   }
 
@@ -35,9 +36,9 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     if (result == null) {
       return Scaffold(
-        backgroundColor: AppColors.scaffoldBg,
-        body: const Center(
-          child: CircularProgressIndicator(color: AppColors.primary),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: Center(
+          child: CircularProgressIndicator(color: Theme.of(context).primaryColor),
         ),
       );
     }
@@ -51,7 +52,7 @@ class ResultScreen extends StatelessWidget {
     final nextSkill = RoadmapService.nextFocusArea(result!.skillScores);
 
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           // Background Glows
@@ -65,7 +66,7 @@ class ResultScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withOpacity(0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -82,7 +83,7 @@ class ResultScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
                     blurRadius: 120,
                   ),
                 ],
@@ -125,10 +126,10 @@ class ResultScreen extends StatelessWidget {
                           height: 120,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            gradient: AppColors.primaryGradient,
+                            gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.primary.withOpacity(0.25),
+                                color: Theme.of(context).primaryColor.withOpacity(0.25),
                                 blurRadius: 16,
                                 offset: const Offset(0, 4),
                               ),
@@ -150,7 +151,7 @@ class ResultScreen extends StatelessWidget {
                         Text(
                           level.toUpperCase(),
                           style: GoogleFonts.poppins(
-                            color: AppColors.primary,
+                            color: Theme.of(context).primaryColor,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 0.8,
@@ -169,14 +170,14 @@ class ResultScreen extends StatelessWidget {
                             Text(
                               "Job Readiness Score",
                               style: GoogleFonts.poppins(
-                                color: AppColors.textSecondary,
+                                color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                                 fontSize: 13,
                               ),
                             ),
                             Text(
                               "${readiness.toStringAsFixed(0)}%",
                               style: GoogleFonts.poppins(
-                                color: AppColors.success,
+                                color: Theme.of(context).extension<AppThemeExtension>()!.success,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -235,7 +236,7 @@ class ResultScreen extends StatelessWidget {
                             Text(
                               "Strengths",
                               style: GoogleFonts.poppins(
-                                color: AppColors.success,
+                                color: Theme.of(context).extension<AppThemeExtension>()!.success,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -246,8 +247,8 @@ class ResultScreen extends StatelessWidget {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.check_circle_outline_rounded,
-                                        color: AppColors.success, size: 16),
+                                    Icon(Icons.check_circle_outline_rounded,
+                                        color: Theme.of(context).extension<AppThemeExtension>()!.success, size: 16),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
@@ -274,7 +275,7 @@ class ResultScreen extends StatelessWidget {
                             Text(
                               "Skill Gaps",
                               style: GoogleFonts.poppins(
-                                color: AppColors.error,
+                                color: Theme.of(context).colorScheme.error,
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -285,8 +286,8 @@ class ResultScreen extends StatelessWidget {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.cancel_outlined,
-                                        color: AppColors.error, size: 16),
+                                    Icon(Icons.cancel_outlined,
+                                        color: Theme.of(context).colorScheme.error, size: 16),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(
@@ -314,7 +315,7 @@ class ResultScreen extends StatelessWidget {
                     opacity: 0.05,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: AppColors.warning.withOpacity(0.25),
+                      color: Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.25),
                       width: 1,
                     ),
                     child: Column(
@@ -322,12 +323,12 @@ class ResultScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.star_rounded, color: AppColors.warning, size: 20),
+                            Icon(Icons.star_rounded, color: Theme.of(context).extension<AppThemeExtension>()!.warning, size: 20),
                             const SizedBox(width: 8),
                             Text(
                               "Next Focus Area",
                               style: GoogleFonts.poppins(
-                                color: AppColors.warning,
+                                color: Theme.of(context).extension<AppThemeExtension>()!.warning,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                               ),
@@ -386,7 +387,7 @@ class ResultScreen extends StatelessWidget {
                               Text(
                                 item.description,
                                 style: GoogleFonts.poppins(
-                                  color: AppColors.textSecondary,
+                                  color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                                   fontSize: 13,
                                   height: 1.4,
                                 ),
@@ -401,17 +402,17 @@ class ResultScreen extends StatelessWidget {
                                       vertical: 5,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: priorityColor(item.priority).withOpacity(0.12),
+                                      color: priorityColor(context, item.priority).withOpacity(0.12),
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                        color: priorityColor(item.priority).withOpacity(0.3),
+                                        color: priorityColor(context, item.priority).withOpacity(0.3),
                                         width: 0.8,
                                       ),
                                     ),
                                     child: Text(
                                       "${item.priority} Priority",
                                       style: GoogleFonts.poppins(
-                                        color: priorityColor(item.priority),
+                                        color: priorityColor(context, item.priority),
                                         fontSize: 11,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -449,7 +450,7 @@ class ResultScreen extends StatelessWidget {
                       child: Text(
                         "Estimated Learning Time: $totalHours Hours",
                         style: GoogleFonts.poppins(
-                          color: AppColors.primary,
+                          color: Theme.of(context).primaryColor,
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),

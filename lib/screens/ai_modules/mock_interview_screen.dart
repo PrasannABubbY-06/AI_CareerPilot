@@ -9,6 +9,7 @@ import '../../services/interview_ai_service.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class MockInterviewScreen extends StatefulWidget {
   const MockInterviewScreen({super.key});
@@ -57,7 +58,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Enter role first", style: GoogleFonts.poppins()),
-          backgroundColor: AppColors.error,
+          backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -98,7 +99,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Error: $e", style: GoogleFonts.poppins()),
-          backgroundColor: AppColors.error,
+          backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -126,7 +127,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Speech recognition not available", style: GoogleFonts.poppins()),
-          backgroundColor: AppColors.error,
+          backgroundColor: Theme.of(context).colorScheme.error,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -185,7 +186,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24),
               side: BorderSide(
-                color: AppColors.primary.withOpacity(0.25),
+                color: Theme.of(context).primaryColor.withOpacity(0.25),
                 width: 1,
               ),
             ),
@@ -199,7 +200,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
             content: Text(
               "Final Confidence Score: $confidenceScore%\n\nExcellent practice session completed.",
               style: GoogleFonts.poppins(
-                color: AppColors.textSecondary,
+                color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                 height: 1.5,
               ),
             ),
@@ -211,7 +212,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                 child: Text(
                   "OK",
                   style: GoogleFonts.poppins(
-                    color: AppColors.primary,
+                    color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -234,7 +235,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.scaffoldBg,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -256,7 +257,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primary.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withOpacity(0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -275,11 +276,11 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                   width: double.infinity,
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    gradient: AppColors.primaryGradient,
+                    gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: AppColors.primary.withOpacity(0.2),
+                        color: Theme.of(context).primaryColor.withOpacity(0.2),
                         blurRadius: 16,
                         offset: const Offset(0, 6),
                       ),
@@ -341,8 +342,8 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(18),
-                        borderSide: const BorderSide(
-                          color: AppColors.primary,
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
                           width: 1.5,
                         ),
                       ),
@@ -383,7 +384,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                       Text(
                         "Question ${currentQuestionIndex + 1} of ${questions.length}",
                         style: GoogleFonts.poppins(
-                          color: AppColors.primary,
+                          color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 13,
                         ),
@@ -432,7 +433,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                                     height: 80.0 + (index * 20.0),
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
-                                      color: AppColors.error.withOpacity(0.12 - (index * 0.03)),
+                                      color: Theme.of(context).colorScheme.error.withOpacity(0.12 - (index * 0.03)),
                                     ),
                                   ).animate(onPlay: (controller) => controller.repeat(reverse: true))
                                    .scale(begin: const Offset(0.9, 0.9), end: const Offset(1.1, 1.1), duration: (1000 + index * 200).ms, curve: Curves.easeInOut);
@@ -444,10 +445,10 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                                   shape: BoxShape.circle,
                                   gradient: isListening
                                       ? const LinearGradient(colors: [Colors.red, Color(0xFFEF4444)])
-                                      : AppColors.primaryGradient,
+                                      : Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: (isListening ? Colors.red : AppColors.primary).withOpacity(0.35),
+                                      color: (isListening ? Colors.red : Theme.of(context).primaryColor).withOpacity(0.35),
                                       blurRadius: 18,
                                       offset: const Offset(0, 6),
                                     ),
@@ -466,7 +467,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                         Text(
                           isListening ? "Listening... Tap to stop" : "Tap Mic To Answer",
                           style: GoogleFonts.poppins(
-                            color: isListening ? AppColors.error : AppColors.textSecondary,
+                            color: isListening ? Theme.of(context).colorScheme.error : (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                             fontWeight: FontWeight.w600,
                             fontSize: 13,
                           ),
@@ -495,7 +496,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                     child: Text(
                       userAnswer.isEmpty ? "Your answer will appear here..." : userAnswer,
                       style: GoogleFonts.poppins(
-                        color: userAnswer.isEmpty ? AppColors.textSecondary.withOpacity(0.7) : Colors.white,
+                        color: userAnswer.isEmpty ? (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withOpacity(0.7) : Colors.white,
                         fontSize: 14,
                         height: 1.4,
                       ),
@@ -511,7 +512,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                       Text(
                         "Confidence Level",
                         style: GoogleFonts.poppins(
-                          color: AppColors.textSecondary,
+                          color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
                         ),
@@ -519,7 +520,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                       Text(
                         "$confidenceScore%",
                         style: GoogleFonts.poppins(
-                          color: AppColors.success,
+                          color: Theme.of(context).extension<AppThemeExtension>()!.success,
                           fontWeight: FontWeight.bold,
                           fontSize: 13,
                         ),
@@ -533,7 +534,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                       value: confidenceScore / 100,
                       minHeight: 8,
                       backgroundColor: Colors.white12,
-                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.success),
+                      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).extension<AppThemeExtension>()!.success),
                     ),
                   ),
 
@@ -546,13 +547,13 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                       padding: const EdgeInsets.all(20),
                       opacity: 0.05,
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: AppColors.secondary.withOpacity(0.2)),
+                      border: Border.all(color: Theme.of(context).colorScheme.secondary.withOpacity(0.2)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.psychology_rounded, color: AppColors.secondary, size: 22),
+                              Icon(Icons.psychology_rounded, color: Theme.of(context).colorScheme.secondary, size: 22),
                               const SizedBox(width: 10),
                               Text(
                                 "AI Feedback Analysis",
@@ -568,7 +569,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                           Text(
                             aiFeedback,
                             style: GoogleFonts.poppins(
-                              color: AppColors.textSecondary,
+                              color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey),
                               fontSize: 13.5,
                               height: 1.5,
                             ),
@@ -583,7 +584,7 @@ class _MockInterviewScreenState extends State<MockInterviewScreen> {
                   PrimaryButton(
                     text: currentQuestionIndex == questions.length - 1 ? "Finish Interview" : "Next Question",
                     onPressed: nextQuestion,
-                    gradient: AppColors.primaryGradient,
+                    gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                   ),
                   const SizedBox(height: 40),
                 ],

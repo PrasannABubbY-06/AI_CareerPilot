@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'notification_service.dart';
 
 class FirestoreService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -26,13 +28,18 @@ class FirestoreService {
           "email": user.email ?? "",
           "createdAt": FieldValue.serverTimestamp(),
         });
+        await NotificationService().sendNotification(
+          title: "Welcome to AI_CareerPilot!",
+          message: "Your premium career journey starts now.",
+          category: NotificationCategory.systemUpdate,
+        );
       } else {
         await userRef.update({
           "lastLogin": FieldValue.serverTimestamp(),
         });
       }
     } catch (e) {
-      throw Exception("saveUserAfterLogin failed: $e");
+      debugPrint("saveUserAfterLogin failed: $e");
     }
   }
 
@@ -51,8 +58,14 @@ class FirestoreService {
         "phone": phone,
         "updatedAt": FieldValue.serverTimestamp(),
       }, SetOptions(merge: true));
+      
+      await NotificationService().sendNotification(
+        title: "Profile Updated",
+        message: "Your profile details have been saved successfully.",
+        category: NotificationCategory.systemUpdate,
+      );
     } catch (e) {
-      throw Exception("saveUserProfile failed: $e");
+      debugPrint("saveUserProfile failed: $e");
     }
   }
 
@@ -66,7 +79,8 @@ class FirestoreService {
 
       return doc.exists ? doc.data() : null;
     } catch (e) {
-      throw Exception("getUser failed: $e");
+      debugPrint("getUser failed: $e");
+      return null;
     }
   }
 
@@ -86,8 +100,14 @@ class FirestoreService {
         "suggestions": suggestions,
         "createdAt": FieldValue.serverTimestamp(),
       });
+      
+      await NotificationService().sendNotification(
+        title: "Resume Analysis Completed",
+        message: "Your ATS Score is $atsScore%. Check the profile for detailed insights.",
+        category: NotificationCategory.resumeInsight,
+      );
     } catch (e) {
-      throw Exception("saveResumeReport failed: $e");
+      debugPrint("saveResumeReport failed: $e");
     }
   }
 
@@ -109,7 +129,7 @@ class FirestoreService {
         "createdAt": FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      throw Exception("saveSkillResult failed: $e");
+      debugPrint("saveSkillResult failed: $e");
     }
   }
 
@@ -132,7 +152,7 @@ class FirestoreService {
         "createdAt": FieldValue.serverTimestamp(),
       });
     } catch (e) {
-      throw Exception("saveCareerAnalysis failed: $e");
+      debugPrint("saveCareerAnalysis failed: $e");
     }
   }
 
@@ -150,8 +170,14 @@ class FirestoreService {
         "roadmap": roadmap,
         "createdAt": FieldValue.serverTimestamp(),
       });
+      
+      await NotificationService().sendNotification(
+        title: "New Learning Path Generated",
+        message: "Your roadmap for $role is ready.",
+        category: NotificationCategory.learningReminder,
+      );
     } catch (e) {
-      throw Exception("saveRoadmap failed: $e");
+      debugPrint("saveRoadmap failed: $e");
     }
   }
 
@@ -171,8 +197,14 @@ class FirestoreService {
         "feedback": feedback,
         "createdAt": FieldValue.serverTimestamp(),
       });
+      
+      await NotificationService().sendNotification(
+        title: "Mock Interview Completed",
+        message: "You scored $score/10. Review your feedback to improve.",
+        category: NotificationCategory.interviewPrep,
+      );
     } catch (e) {
-      throw Exception("saveMockInterview failed: $e");
+      debugPrint("saveMockInterview failed: $e");
     }
   }
-}
+}

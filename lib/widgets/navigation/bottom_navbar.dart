@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../common/glass_container.dart';
+import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class BottomNavbar extends StatelessWidget {
   final int currentIndex;
@@ -23,7 +24,7 @@ class BottomNavbar extends StatelessWidget {
           opacity: 0.06,
           borderRadius: BorderRadius.circular(28),
           border: Border.all(
-            color: Colors.white.withOpacity(0.08),
+            color: Theme.of(context).dividerColor,
             width: 1,
           ),
           child: Theme(
@@ -37,13 +38,13 @@ class BottomNavbar extends StatelessWidget {
               backgroundColor: Colors.transparent,
               elevation: 0,
               type: BottomNavigationBarType.fixed,
-              selectedItemColor: AppColors.primary,
-              unselectedItemColor: Colors.white38,
+              selectedItemColor: Theme.of(context).primaryColor,
+              unselectedItemColor: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6) ?? Colors.grey,
               selectedFontSize: 12,
               unselectedFontSize: 11,
               showSelectedLabels: true,
               showUnselectedLabels: true,
-              items: const [
+              items: [
                 BottomNavigationBarItem(
                   icon: Padding(
                     padding: EdgeInsets.only(bottom: 4),
@@ -53,7 +54,7 @@ class BottomNavbar extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 4),
                     child: Icon(Icons.grid_view_rounded, shadows: [
                       Shadow(
-                        color: AppColors.primary,
+                        color: Theme.of(context).primaryColor,
                         blurRadius: 10,
                       )
                     ]),
@@ -69,7 +70,7 @@ class BottomNavbar extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 4),
                     child: Icon(Icons.analytics_rounded, shadows: [
                       Shadow(
-                        color: AppColors.primary,
+                        color: Theme.of(context).primaryColor,
                         blurRadius: 10,
                       )
                     ]),
@@ -85,7 +86,7 @@ class BottomNavbar extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 4),
                     child: Icon(Icons.description_rounded, shadows: [
                       Shadow(
-                        color: AppColors.primary,
+                        color: Theme.of(context).primaryColor,
                         blurRadius: 10,
                       )
                     ]),
@@ -101,7 +102,7 @@ class BottomNavbar extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 4),
                     child: Icon(Icons.mic_rounded, shadows: [
                       Shadow(
-                        color: AppColors.primary,
+                        color: Theme.of(context).primaryColor,
                         blurRadius: 10,
                       )
                     ]),
@@ -117,7 +118,7 @@ class BottomNavbar extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 4),
                     child: Icon(Icons.work_rounded, shadows: [
                       Shadow(
-                        color: AppColors.primary,
+                        color: Theme.of(context).primaryColor,
                         blurRadius: 10,
                       )
                     ]),
