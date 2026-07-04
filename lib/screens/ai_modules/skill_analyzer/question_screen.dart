@@ -4,14 +4,13 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../../../constants/app_colors.dart';
 import '../../../widgets/common/glass_container.dart';
 import 'models/question_model.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class QuestionScreen extends StatelessWidget {
   final List<QuestionModel> questions;
   final int currentIndex;
   final Function(int) onAnswer;
 
-  QuestionScreen({
+  const QuestionScreen({
     super.key,
     required this.questions,
     required this.currentIndex,
@@ -63,7 +62,7 @@ class QuestionScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.06),
                     blurRadius: 100,
                   ),
                 ],
@@ -127,10 +126,10 @@ class QuestionScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: AppColors.accentPink.withOpacity(0.12),
+                          color: AppColors.accentPink.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                            color: AppColors.accentPink.withOpacity(0.3),
+                            color: AppColors.accentPink.withValues(alpha: 0.3),
                             width: 0.8,
                           ),
                         ),
@@ -152,7 +151,7 @@ class QuestionScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.04),
+                          color: Colors.white.withValues(alpha: 0.04),
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Text(
@@ -209,10 +208,10 @@ class QuestionScreen extends StatelessWidget {
                                 width: 32,
                                 height: 32,
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.05),
+                                  color: Colors.white.withValues(alpha: 0.05),
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: Colors.white.withOpacity(0.1),
+                                    color: Colors.white.withValues(alpha: 0.1),
                                   ),
                                 ),
                                 child: Center(
@@ -246,7 +245,7 @@ class QuestionScreen extends StatelessWidget {
                     ).animate(key: ValueKey('opt_$idx'))
                      .fade(delay: (idx * 50).ms, duration: 400.ms)
                      .slideX(begin: 0.04, end: 0, curve: Curves.easeOutQuad);
-                  }).toList(),
+                  }),
                 ],
               ),
             ),

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../constants/app_colors.dart';
 import 'glass_container.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class PremiumDetailModal {
   static void show({
@@ -34,7 +32,7 @@ class PremiumDetailModal {
                 border: Border.all(color: Colors.white12, width: 1),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
+                    color: Colors.black.withValues(alpha: 0.5),
                     blurRadius: 40,
                     spreadRadius: 10,
                   )
@@ -59,7 +57,7 @@ class PremiumDetailModal {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: color.withOpacity(0.15),
+                          color: color.withValues(alpha: 0.15),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(icon, color: color, size: 28),

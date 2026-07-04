@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../constants/app_colors.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/glass_container.dart';
 import '../../services/notification_service.dart';
@@ -108,7 +107,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -130,7 +129,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                       borderRadius: BorderRadius.circular(28),
                       boxShadow: [
                         BoxShadow(
-                          color: Theme.of(context).primaryColor.withOpacity(0.2),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                           blurRadius: 16,
                           offset: const Offset(0, 6),
                         ),
@@ -186,7 +185,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                           borderRadius: BorderRadius.circular(18),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).primaryColor.withOpacity(0.3),
+                              color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
                               blurRadius: 12,
                               offset: const Offset(0, 4),
                             ),
@@ -230,8 +229,8 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                 borderRadius: BorderRadius.circular(22),
                                 border: Border.all(
                                   color: isDone
-                                      ? Theme.of(context).extension<AppThemeExtension>()!.success.withOpacity(0.2)
-                                      : Colors.white.withOpacity(0.08),
+                                      ? Theme.of(context).extension<AppThemeExtension>()!.success.withValues(alpha: 0.2)
+                                      : Colors.white.withValues(alpha: 0.08),
                                 ),
                                 child: Row(
                                   children: [
@@ -243,8 +242,8 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                         decoration: BoxDecoration(
                                           shape: BoxShape.circle,
                                           color: isDone
-                                              ? Theme.of(context).extension<AppThemeExtension>()!.success.withOpacity(0.12)
-                                              : Colors.white.withOpacity(0.04),
+                                              ? Theme.of(context).extension<AppThemeExtension>()!.success.withValues(alpha: 0.12)
+                                              : Colors.white.withValues(alpha: 0.04),
                                           border: Border.all(
                                             color: isDone
                                                 ? Theme.of(context).extension<AppThemeExtension>()!.success
@@ -269,7 +268,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                         goal["title"],
                                         style: GoogleFonts.poppins(
                                           color: isDone
-                                              ? Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.5)
+                                              ? Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.5)
                                               : Theme.of(context).textTheme.bodyLarge?.color,
                                           fontSize: 15,
                                           fontWeight: isDone ? FontWeight.w400 : FontWeight.w600,
@@ -284,7 +283,7 @@ class _WeeklyGoalsScreenState extends State<WeeklyGoalsScreen> {
                                       child: Container(
                                         padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: Theme.of(context).colorScheme.error.withOpacity(0.08),
+                                          color: Theme.of(context).colorScheme.error.withValues(alpha: 0.08),
                                           shape: BoxShape.circle,
                                         ),
                                         child: Icon(

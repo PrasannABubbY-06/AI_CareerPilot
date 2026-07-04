@@ -80,6 +80,51 @@ class GroqService {
     }
     return fallbackResponse;
   }
+
+  /// Expose generic call for Career Mentor and other services
+  Future<String> generateGenericResponse(String prompt, String systemInstruction) async {
+    return await _getGroqResponse(prompt, systemInstruction);
+  }
+
+  /// Generates a personalized daily motivation message
+  Future<String> generateDailyMotivation(String userName, int level, int streak, String? careerGoal) async {
+    final String goalContext = careerGoal != null && careerGoal.isNotEmpty 
+        ? "Their ultimate goal is to become a $careerGoal." 
+        : "They are currently exploring tech careers.";
+
+    final systemInstruction = """
+    You are a supportive and inspiring AI Career Mentor.
+    Write a short, engaging 2-sentence daily motivation message for the user.
+    Acknowledge their current level or daily streak to make it personalized.
+    $goalContext
+    Use emojis. Do not use generic corporate language. Make it punchy and actionable.
+    """;
+
+    final prompt = "User Name: $userName\nLevel: $level\nStreak: $streak days";
+    return await _getGroqResponse(prompt, systemInstruction);
+  }
+
+  /// Generates a weekly progress report from the AI Career Twin
+  Future<String> generateWeeklyReport(String userName, int level, int xpEarned, List<String> completedTasks, String? careerGoal) async {
+    final String goalContext = careerGoal != null && careerGoal.isNotEmpty 
+        ? "Their ultimate goal is to become a $careerGoal." 
+        : "They are currently exploring tech careers.";
+        
+    final systemInstruction = """
+    You are a highly analytical and supportive AI Career Twin.
+    Generate a short Weekly Progress Report for the user based on their activity this week.
+    $goalContext
+    Provide a 3-part structured response:
+    1. 🏆 Weekly Wins: A short 2-sentence celebration of what they accomplished.
+    2. 🔍 Focus Area: Identify one area they should focus on next based on their completed tasks.
+    3. 🚀 Next Step: A single actionable recommendation for the upcoming week.
+    Format nicely with markdown. Keep it concise, engaging, and professional.
+    """;
+
+    final prompt = "User Name: $userName\nLevel: $level\nXP Earned: $xpEarned\nCompleted Tasks this week: ${completedTasks.join(', ')}";
+    return await _getGroqResponse(prompt, systemInstruction);
+  }
+
   /// Generates a customized learning path with embedded YouTube URLs using a Knowledge Base Cache
   Future<String> generateLearningRoadmap(List<String> missingSkills) async {
     if (missingSkills.isEmpty) {
@@ -93,13 +138,13 @@ class GroqService {
     const systemInstruction = """
       You are an expert technical career coach. Your task is to output a bulleted, step-by-step technical learning roadmap for a single skill.
       
-      CRITICAL INSTRUCTION: You MUST provide EXACTLY 4 resources:
-      1. A verified direct YouTube video tutorial or playlist URL.
-      2. An official documentation URL.
-      3. A high-quality Notes or Tutorial Article URL (Use trusted sites only: GeeksforGeeks, MDN, W3Schools, Official Documentation, FreeCodeCamp, Microsoft Learn, AWS Docs, Google Developers).
-      4. A Practice or Resource URL (e.g. GitHub repository, LeetCode, Kaggle, Practice site).
+      CRITICAL INSTRUCTION: You MUST provide EXACTLY 4 resources. To prevent broken links, use these exact URL formats:
+      1. YouTube URL: MUST be a search query -> https://www.youtube.com/results?search_query=[Skill+Name]+tutorial
+      2. Documentation URL: Use the official top-level domain OR a google search -> https://www.google.com/search?q=[Skill+Name]+official+documentation
+      3. Notes URL: Use a google search query -> https://www.google.com/search?q=[Skill+Name]+tutorial+GeeksforGeeks
+      4. Practice URL: Use a google search query -> https://www.google.com/search?q=[Skill+Name]+practice+problems
       
-      Ensure ALL links are valid, existing, and point to real resources. Do not hallucinate links.
+      Ensure you only substitute [Skill+Name] with the actual skill name. Do NOT hallucinate specific video IDs or deep links.
       
       Format the output as clean markdown (do not wrap in a top-level # header, start directly with step-by-step list):
       - **Step 1**: ...
@@ -194,5 +239,54 @@ class GroqService {
     // Since we now rely on an extensive pre-populated database for most skills and 
     // strict AI prompting for the rest, we avoid making unreliable HTTP calls here.
     return roadmap;
+  }
+
+  /// Generates resources for a specific journey stage
+  Future<String> generateStageResources(String skillName, int levelIndex) async {
+    final stages = ["Beginner", "Intermediate", "Advanced", "Expert", "Job Ready"];
+    final stageName = stages[levelIndex];
+
+    const systemInstruction = """
+    You are an expert technical curriculum designer.
+    Generate a short, focused learning guide for a specific skill and proficiency level.
+    Provide exactly:
+    1. A short introduction (2 sentences).
+    2. 3 Key Concepts to learn at this stage.
+    3. 3 Recommended Resources. 
+    
+    CRITICAL URL RULES:
+    - NEVER invent specific YouTube video IDs. You MUST use a YouTube search URL: https://www.youtube.com/results?search_query=[Skill]+[Stage]+tutorial
+    - For documentation or articles, use Google search URLs: https://www.google.com/search?q=[Skill]+[Stage]+documentation
+    - Do NOT hallucinate specific deep links. Use search queries.
+    
+    Format as clean markdown. Do not include a title header.
+    """;
+
+    final prompt = "Generate a learning guide for $skillName at the $stageName level.";
+    return await _getGroqResponse(prompt, systemInstruction);
+  }
+
+  /// Generates a 3-5 MCQ quiz for a specific journey stage
+  Future<String> generateStageQuiz(String skillName, int levelIndex) async {
+    final stages = ["Beginner", "Intermediate", "Advanced", "Expert", "Job Ready"];
+    final stageName = stages[levelIndex];
+
+    const systemInstruction = """
+    You are an expert technical assessor.
+    Create a 3-question multiple choice quiz to test someone's knowledge on a skill at a specific proficiency level.
+    You MUST respond with ONLY a valid JSON array of objects. No markdown, no intro text.
+    Structure exactly like this:
+    [
+      {
+        "question": "What is X?",
+        "options": ["A", "B", "C", "D"],
+        "correctIndex": 0,
+        "explanation": "A is correct because..."
+      }
+    ]
+    """;
+
+    final prompt = "Generate a 3-question quiz for $skillName at the $stageName level.";
+    return await _getGroqResponse(prompt, systemInstruction);
   }
 }

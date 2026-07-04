@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../constants/app_colors.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -58,7 +56,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         boxShadow: _isFocused
             ? [
                 BoxShadow(
-                  color: Theme.of(context).primaryColor.withOpacity(0.15),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.15),
                   blurRadius: 16,
                   spreadRadius: 1,
                 ),
@@ -77,7 +75,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         decoration: InputDecoration(
           hintText: widget.hintText,
           hintStyle: GoogleFonts.poppins(
-            color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withOpacity(0.7),
+            color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withValues(alpha: 0.7),
             fontSize: 14,
           ),
           prefixIcon: widget.prefixIcon != null
@@ -94,7 +92,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
             borderSide: BorderSide(
-              color: Colors.white.withOpacity(0.08),
+              color: Colors.white.withValues(alpha: 0.08),
               width: 1,
             ),
           ),
@@ -108,7 +106,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(18),
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.error.withOpacity(0.5),
+              color: Theme.of(context).colorScheme.error.withValues(alpha: 0.5),
               width: 1,
             ),
           ),

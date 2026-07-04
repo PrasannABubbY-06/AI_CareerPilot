@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../constants/app_colors.dart';
 import '../../widgets/common/glass_container.dart';
 import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
@@ -51,10 +50,10 @@ class RecruiterDashboard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor.withOpacity(0.12),
+        color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          color: Theme.of(context).primaryColor.withOpacity(0.35),
+          color: Theme.of(context).primaryColor.withValues(alpha: 0.35),
           width: 1,
         ),
       ),
@@ -81,10 +80,10 @@ class RecruiterDashboard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 14),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
+        color: Colors.white.withValues(alpha: 0.02),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: Colors.white.withOpacity(0.05),
+          color: Colors.white.withValues(alpha: 0.05),
         ),
       ),
       child: Row(
@@ -93,13 +92,13 @@ class RecruiterDashboard extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: Theme.of(context).primaryColor.withOpacity(0.4),
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.4),
                 width: 1.5,
               ),
             ),
             child: CircleAvatar(
               radius: 24,
-              backgroundColor: Theme.of(context).primaryColor.withOpacity(0.12),
+              backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.12),
               child: Text(
                 name[0],
                 style: GoogleFonts.poppins(
@@ -137,10 +136,10 @@ class RecruiterDashboard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: scoreColor.withOpacity(0.12),
+              color: scoreColor.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(30),
               border: Border.all(
-                color: scoreColor.withOpacity(0.45),
+                color: scoreColor.withValues(alpha: 0.45),
                 width: 1,
               ),
             ),
@@ -221,7 +220,7 @@ class RecruiterDashboard extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.05),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.05),
                     blurRadius: 120,
                   ),
                 ],
@@ -354,10 +353,10 @@ class RecruiterDashboard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.02),
+        color: Colors.white.withValues(alpha: 0.02),
         borderRadius: BorderRadius.circular(18),
         border: Border.all(
-          color: Colors.white.withOpacity(0.05),
+          color: Colors.white.withValues(alpha: 0.05),
         ),
       ),
       child: Row(

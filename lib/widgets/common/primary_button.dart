@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../constants/app_colors.dart';
 import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class PrimaryButton extends StatefulWidget {
@@ -79,8 +78,8 @@ class _PrimaryButtonState extends State<PrimaryButton>
             gradient: isDisabled
                 ? LinearGradient(
                     colors: [
-                      Colors.white.withOpacity(0.08),
-                      Colors.white.withOpacity(0.04),
+                      Colors.white.withValues(alpha: 0.08),
+                      Colors.white.withValues(alpha: 0.04),
                     ],
                   )
                 : finalGradient,
@@ -90,7 +89,7 @@ class _PrimaryButtonState extends State<PrimaryButton>
                 : [
                     BoxShadow(
                       color: (widget.gradient?.colors.first ?? Theme.of(context).primaryColor)
-                          .withOpacity(0.3),
+                          .withValues(alpha: 0.3),
                       blurRadius: 18,
                       offset: const Offset(0, 6),
                     ),

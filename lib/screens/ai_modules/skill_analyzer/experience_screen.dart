@@ -25,11 +25,11 @@ class ExperienceScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.12),
+                color: color.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(14),
                 boxShadow: [
                   BoxShadow(
-                    color: color.withOpacity(0.15),
+                    color: color.withValues(alpha: 0.15),
                     blurRadius: 8,
                   ),
                 ],
@@ -75,7 +75,7 @@ class ExperienceScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -97,7 +97,7 @@ class ExperienceScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor.withOpacity(0.12),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(

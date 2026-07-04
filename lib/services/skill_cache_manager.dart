@@ -391,6 +391,20 @@ class SkillCacheManager {
     return skill.trim().toLowerCase();
   }
 
+  /// Generates a deterministic hash for a complex profile
+  static String generateProfileHash(Map<String, dynamic> profileData) {
+    // A simple deterministic way: sort keys, concatenate values
+    final sortedKeys = profileData.keys.toList()..sort();
+    final buffer = StringBuffer();
+    for (var key in sortedKeys) {
+      final value = profileData[key]?.toString().trim().toLowerCase() ?? '';
+      if (value.isNotEmpty) {
+        buffer.write('$key:$value|');
+      }
+    }
+    return buffer.toString().hashCode.toString();
+  }
+
   /// Retrieves cached roadmap for a given skill. Checks Memory -> SharedPreferences -> Firestore.
   static Future<String?> getRoadmap(String skill) async {
     final norm = _normalize(skill);
@@ -474,6 +488,77 @@ class SkillCacheManager {
       debugPrint("SKILL_CACHE [SAVE FIRESTORE]: $skill");
     } catch (e) {
       debugPrint("SKILL_CACHE [FIRESTORE SAVE ERROR]: $e");
+    }
+  }
+
+  /// Retrieves cached career report for a given profile hash.
+  static Future<String?> getCareerReport(String profileHash) async {
+    // 1. Check Memory Cache
+    if (_memoryCache.containsKey('career_$profileHash')) {
+      debugPrint("CAREER_CACHE [MEMORY HIT]");
+      return _memoryCache['career_$profileHash'];
+    }
+
+    // 2. Check SharedPreferences (Local Disk)
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final localVal = prefs.getString("career_$profileHash");
+      if (localVal != null && localVal.isNotEmpty) {
+        debugPrint("CAREER_CACHE [LOCAL DISK HIT]");
+        _memoryCache['career_$profileHash'] = localVal;
+        return localVal;
+      }
+    } catch (e) {
+      debugPrint("CAREER_CACHE [LOCAL DISK READ ERROR]: $e");
+    }
+
+    // 3. Check Cloud Firestore
+    try {
+      final doc = await FirebaseFirestore.instance.collection('career_reports').doc(profileHash).get();
+      if (doc.exists) {
+        final report = doc.data()?['report'] as String?;
+        if (report != null && report.isNotEmpty) {
+          debugPrint("CAREER_CACHE [FIRESTORE HIT]");
+          _memoryCache['career_$profileHash'] = report;
+          
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString("career_$profileHash", report);
+          
+          return report;
+        }
+      }
+    } catch (e) {
+      debugPrint("CAREER_CACHE [FIRESTORE READ ERROR]: $e");
+    }
+
+    debugPrint("CAREER_CACHE [CACHE MISS]");
+    return null;
+  }
+
+  /// Saves a newly generated career report.
+  static Future<void> saveCareerReport(String profileHash, String report) async {
+    if (report.isEmpty) return;
+
+    // 1. Save in Memory
+    _memoryCache['career_$profileHash'] = report;
+
+    // 2. Save in SharedPreferences
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString("career_$profileHash", report);
+    } catch (e) {
+      debugPrint("CAREER_CACHE [LOCAL DISK SAVE ERROR]: $e");
+    }
+
+    // 3. Save in Cloud Firestore
+    try {
+      await FirebaseFirestore.instance.collection('career_reports').doc(profileHash).set({
+        'report': report,
+        'savedAt': FieldValue.serverTimestamp(),
+      });
+      debugPrint("CAREER_CACHE [SAVE FIRESTORE SUCCESS]");
+    } catch (e) {
+      debugPrint("CAREER_CACHE [FIRESTORE SAVE ERROR]: $e");
     }
   }
 }

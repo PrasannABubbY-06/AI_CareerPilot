@@ -3,13 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../constants/app_colors.dart';
 import '../../services/auth_service.dart';
 import '../../services/firestore_service.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -103,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.12),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
                     blurRadius: 100,
                   ),
                 ],
@@ -120,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.08),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -146,10 +144,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor.withOpacity(0.08),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.08),
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: Theme.of(context).primaryColor.withOpacity(0.15),
+                            color: Theme.of(context).primaryColor.withValues(alpha: 0.15),
                             width: 1.5,
                           ),
                         ),

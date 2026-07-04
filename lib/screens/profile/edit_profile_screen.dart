@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../constants/app_colors.dart';
 import '../../widgets/common/custom_textfield.dart';
 import '../../widgets/common/primary_button.dart';
 import 'package:ai_careerpilot/config/app_theme_extension.dart';
@@ -240,7 +239,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.05),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.05),
                     blurRadius: 100,
                   ),
                 ],
@@ -262,7 +261,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Theme.of(context).primaryColor.withOpacity(0.5), width: 3),
+                          border: Border.all(color: Theme.of(context).primaryColor.withValues(alpha: 0.5), width: 3),
                         ),
                         child: CircleAvatar(
                           radius: 54,

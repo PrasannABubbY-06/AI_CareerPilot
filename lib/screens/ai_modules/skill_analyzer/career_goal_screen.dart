@@ -26,11 +26,11 @@ class CareerGoalScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.12),
+                color: color.withValues(alpha: 0.12),
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: color.withOpacity(0.15),
+                    color: color.withValues(alpha: 0.15),
                     blurRadius: 10,
                     spreadRadius: 1,
                   ),
@@ -76,7 +76,7 @@ class CareerGoalScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.06),
                     blurRadius: 120,
                   ),
                 ],
@@ -99,7 +99,7 @@ class CareerGoalScreen extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor.withOpacity(0.12),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../constants/app_colors.dart';
 import '../../../widgets/common/primary_button.dart';
 import '../../../widgets/common/glass_container.dart';
 import 'voice_interview_service.dart';
@@ -68,7 +67,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -128,7 +127,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                             height: 90.0 + (index * 20.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Theme.of(context).primaryColor.withOpacity(0.12 - (index * 0.03)),
+                              color: Theme.of(context).primaryColor.withValues(alpha: 0.12 - (index * 0.03)),
                             ),
                           ).animate(onPlay: (controller) => controller.repeat(reverse: true))
                            .scale(begin: const Offset(0.9, 0.9), end: const Offset(1.1, 1.1), duration: (800 + index * 200).ms, curve: Curves.easeInOut);
@@ -141,7 +140,7 @@ class _VoiceInterviewScreenState extends State<VoiceInterviewScreen> {
                           gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).primaryColor.withOpacity(0.35),
+                              color: Theme.of(context).primaryColor.withValues(alpha: 0.35),
                               blurRadius: 20,
                               offset: const Offset(0, 6),
                             ),

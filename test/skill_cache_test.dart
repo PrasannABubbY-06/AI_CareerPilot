@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ai_careerpilot/services/skill_cache_manager.dart';
-import 'package:ai_careerpilot/services/groq_service.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

@@ -7,7 +7,6 @@ import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../constants/app_colors.dart';
 import '../../services/jd_advanced_boolean_ats.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
@@ -215,7 +214,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -232,7 +231,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.05),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.05),
                     blurRadius: 110,
                   ),
                 ],
@@ -255,7 +254,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).primaryColor.withOpacity(0.2),
+                        color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                         blurRadius: 16,
                         offset: const Offset(0, 6),
                       ),
@@ -276,7 +275,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                       Text(
                         "Analyze how compatible your resume is with any target Job Description instantly using boolean ATS checks.",
                         style: GoogleFonts.poppins(
-                          color: Colors.white.withOpacity(0.85),
+                          color: Colors.white.withValues(alpha: 0.85),
                           fontSize: 13,
                         ),
                       ),
@@ -293,10 +292,10 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                     width: double.infinity,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.02),
+                      color: Colors.white.withValues(alpha: 0.02),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: Theme.of(context).primaryColor.withOpacity(0.4),
+                        color: Theme.of(context).primaryColor.withValues(alpha: 0.4),
                         width: 1.5,
                       ),
                     ),
@@ -344,7 +343,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                     borderRadius: BorderRadius.circular(18),
                     color: const Color(0xFF0C101B),
                     border: Border.all(
-                      color: Colors.white.withOpacity(0.08),
+                      color: Colors.white.withValues(alpha: 0.08),
                     ),
                   ),
                   child: TextField(
@@ -387,7 +386,7 @@ class _JDMatchScreenState extends State<JDMatchScreen> {
                           height: 80,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: (matchScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning).withOpacity(0.1),
+                            color: (matchScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning).withValues(alpha: 0.1),
                             border: Border.all(
                               color: (matchScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning),
                               width: 2.0,

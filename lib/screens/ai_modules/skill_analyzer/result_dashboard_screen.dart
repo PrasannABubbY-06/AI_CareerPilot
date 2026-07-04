@@ -77,7 +77,7 @@ class ResultDashboardScreen extends StatelessWidget {
 
                   dataSets: [
                     RadarDataSet(
-                      fillColor: Colors.blue.withOpacity(0.3),
+                      fillColor: Colors.blue.withValues(alpha: 0.3),
                       borderColor: Colors.blue,
                       entryRadius: 3,
                       dataEntries: skills.values

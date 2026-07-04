@@ -162,7 +162,7 @@ class _ThreeDTiltWrapperState extends State<ThreeDTiltWrapper>
                                   ),
                                   radius: 1.0,
                                   colors: [
-                                    Colors.white.withOpacity(0.08),
+                                    Colors.white.withValues(alpha: 0.08),
                                     Colors.transparent,
                                   ],
                                 ),

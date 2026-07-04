@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../constants/app_colors.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class AiAnalysisScreen extends StatefulWidget {
   final VoidCallback onComplete;
@@ -43,7 +41,7 @@ class _AiAnalysisScreenState extends State<AiAnalysisScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.06),
                     blurRadius: 100,
                   ),
                 ],

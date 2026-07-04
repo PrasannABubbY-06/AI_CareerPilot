@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../constants/app_colors.dart';
 import '../../widgets/common/glass_container.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class ModuleDetailScreen extends StatelessWidget {
   final String title;
@@ -71,7 +69,7 @@ class ModuleDetailScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: color.withOpacity(0.1),
+                    color: color.withValues(alpha: 0.1),
                     blurRadius: 100,
                   ),
                 ],
@@ -90,9 +88,9 @@ class ModuleDetailScreen extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
+                      color: color.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
-                      border: Border.all(color: color.withOpacity(0.3), width: 2),
+                      border: Border.all(color: color.withValues(alpha: 0.3), width: 2),
                     ),
                     child: Icon(icon, color: color, size: 54),
                   ).animate().scale(duration: 500.ms, curve: Curves.easeOutBack),
@@ -135,7 +133,7 @@ class ModuleDetailScreen extends StatelessWidget {
                         child: Text(
                           f,
                           style: GoogleFonts.poppins(
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                             fontSize: 14,
                           ),
                         ),
@@ -180,7 +178,7 @@ class ModuleDetailScreen extends StatelessWidget {
                                 Container(
                                   width: 2,
                                   height: 30,
-                                  color: color.withOpacity(0.3),
+                                  color: color.withValues(alpha: 0.3),
                                   margin: const EdgeInsets.symmetric(vertical: 4),
                                 ),
                             ],
@@ -192,7 +190,7 @@ class ModuleDetailScreen extends StatelessWidget {
                               child: Text(
                                 step,
                                 style: GoogleFonts.poppins(
-                                  color: Colors.white.withOpacity(0.85),
+                                  color: Colors.white.withValues(alpha: 0.85),
                                   fontSize: 14,
                                 ),
                               ),
@@ -210,12 +208,12 @@ class ModuleDetailScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [color.withOpacity(0.2), color.withOpacity(0.05)],
+                      colors: [color.withValues(alpha: 0.2), color.withValues(alpha: 0.05)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                     borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: color.withOpacity(0.3)),
+                    border: Border.all(color: color.withValues(alpha: 0.3)),
                   ),
                   child: Row(
                     children: [

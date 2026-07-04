@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../constants/app_colors.dart';
 import '../../../widgets/common/custom_textfield.dart';
 import '../../../widgets/common/primary_button.dart';
 import '../../../widgets/common/glass_container.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class SkillSelectionScreen extends StatefulWidget {
   final Function(String) onNext;
@@ -39,7 +37,7 @@ class _SkillSelectionScreenState extends State<SkillSelectionScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                     blurRadius: 100,
                   ),
                 ],
@@ -62,7 +60,7 @@ class _SkillSelectionScreenState extends State<SkillSelectionScreen> {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor.withOpacity(0.12),
+                          color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
                           borderRadius: BorderRadius.circular(100),
                         ),
                         child: Text(

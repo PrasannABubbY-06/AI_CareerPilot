@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../constants/app_colors.dart';
 import '../../ai_modules/skill_analyzer/widgets/radar_chart.dart';
 import '../../../widgets/common/primary_button.dart';
 import '../../../widgets/common/glass_container.dart';
@@ -66,7 +65,7 @@ class ResultScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -83,7 +82,7 @@ class ResultScreen extends StatelessWidget {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.06),
                     blurRadius: 120,
                   ),
                 ],
@@ -129,7 +128,7 @@ class ResultScreen extends StatelessWidget {
                             gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                             boxShadow: [
                               BoxShadow(
-                                color: Theme.of(context).primaryColor.withOpacity(0.25),
+                                color: Theme.of(context).primaryColor.withValues(alpha: 0.25),
                                 blurRadius: 16,
                                 offset: const Offset(0, 4),
                               ),
@@ -160,7 +159,7 @@ class ResultScreen extends StatelessWidget {
                         
                         const SizedBox(height: 12),
                         
-                        Divider(color: Colors.white.withOpacity(0.08)),
+                        Divider(color: Colors.white.withValues(alpha: 0.08)),
                         
                         const SizedBox(height: 12),
                         
@@ -315,7 +314,7 @@ class ResultScreen extends StatelessWidget {
                     opacity: 0.05,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.25),
+                      color: Theme.of(context).extension<AppThemeExtension>()!.warning.withValues(alpha: 0.25),
                       width: 1,
                     ),
                     child: Column(
@@ -402,10 +401,10 @@ class ResultScreen extends StatelessWidget {
                                       vertical: 5,
                                     ),
                                     decoration: BoxDecoration(
-                                      color: priorityColor(context, item.priority).withOpacity(0.12),
+                                      color: priorityColor(context, item.priority).withValues(alpha: 0.12),
                                       borderRadius: BorderRadius.circular(10),
                                       border: Border.all(
-                                        color: priorityColor(context, item.priority).withOpacity(0.3),
+                                        color: priorityColor(context, item.priority).withValues(alpha: 0.3),
                                         width: 0.8,
                                       ),
                                     ),
@@ -444,7 +443,7 @@ class ResultScreen extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.04),
+                        color: Colors.white.withValues(alpha: 0.04),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Text(

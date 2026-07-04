@@ -7,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'config/app_theme.dart';
 import 'services/theme_service.dart';
+import 'package:provider/provider.dart';
+import 'services/career_journey_service.dart';
 
 // SCREENS
 import 'screens/onboarding/onboarding_screen.dart';
@@ -24,6 +26,12 @@ import 'screens/profile/profile_screen.dart';
 import 'screens/recruiter/recruiter_dashboard.dart';
 import 'screens/goals/weekly_goals_screen.dart';
 import 'screens/notifications/notifications_screen.dart';
+import 'screens/ai_modules/career_mentor/mentor_input_screen.dart';
+import 'screens/ai_modules/career_mentor/mentor_report_screen.dart';
+import 'screens/ai_modules/career_quiz/quiz_screen.dart';
+import 'screens/ai_modules/career_twin/career_journey_screen.dart';
+import 'screens/ai_modules/career_twin/weekly_report_screen.dart';
+import 'screens/ai_modules/skill_analyzer/skill_resource_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,8 +68,10 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: ThemeService(),
       builder: (context, themeMode, _) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
+        return ChangeNotifierProvider(
+          create: (_) => CareerJourneyService(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
           title: "AI_CareerPilot",
 
           theme: AppTheme.lightTheme,
@@ -108,7 +118,20 @@ class MyApp extends StatelessWidget {
             "/recruiter-dashboard": (_) => const RecruiterDashboard(),
             "/weekly-goals": (context) => const WeeklyGoalsScreen(),
             "/notifications": (context) => const NotificationsScreen(),
+            "/career-mentor": (context) => const MentorInputScreen(),
+            "/career-mentor-report": (context) {
+              final report = ModalRoute.of(context)!.settings.arguments as String? ?? "No report provided.";
+              return MentorReportScreen(reportMarkdown: report);
+            },
+            "/career-quiz": (context) => const QuizScreen(),
+            "/career-journey": (context) => const CareerJourneyScreen(),
+            "/weekly-report": (context) => const WeeklyReportScreen(),
+            "/skill-resources": (context) {
+              final skillName = ModalRoute.of(context)!.settings.arguments as String? ?? "Unknown Skill";
+              return SkillResourceScreen(skillName: skillName);
+            },
           },
+          ),
         );
       },
     );

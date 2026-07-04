@@ -8,7 +8,17 @@ import '../../widgets/navigation/bottom_navbar.dart';
 import '../../widgets/animations/three_d_tilt_wrapper.dart';
 import '../../widgets/common/glass_container.dart';
 import '../../services/notification_service.dart';
+import '../../services/gamification_service.dart';
+import '../../services/career_quiz_service.dart';
+import '../../services/smart_notification_engine.dart';
+import '../../models/achievement_model.dart';
+import '../../widgets/animations/achievement_popup.dart';
+import '../../widgets/dashboard/ai_mentor_header.dart';
+import '../../widgets/dashboard/progress_overview_card.dart';
+import '../../widgets/dashboard/yesterday_summary_card.dart';
+import '../../widgets/dashboard/quick_actions_row.dart';
 import 'package:ai_careerpilot/config/app_theme_extension.dart';
+import 'dart:async';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -19,11 +29,31 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int currentIndex = 0;
+  final gamification = GamificationService();
+  final CareerQuizService _quizService = CareerQuizService();
+  final SmartNotificationEngine _notificationEngine = SmartNotificationEngine();
+  StreamSubscription<AchievementModel>? _achievementSub;
 
   @override
   void initState() {
     super.initState();
     NotificationService().initialize();
+    
+    // Listen for real-time achievement unlocks
+    _achievementSub = gamification.achievementStream.listen((achievement) {
+      AchievementPopup.show(context, achievement);
+    });
+
+    // Run smart notification checks
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _notificationEngine.runStartupChecks();
+    });
+  }
+
+  @override
+  void dispose() {
+    _achievementSub?.cancel();
+    super.dispose();
   }
 
   void openNotifications() {
@@ -105,7 +135,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                   boxShadow: [
                     BoxShadow(
-                      color: Theme.of(context).primaryColor.withOpacity(0.3),
+                      color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
                       blurRadius: 8,
                       spreadRadius: 1,
                     )
@@ -142,7 +172,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -159,7 +189,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.06),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -171,64 +201,87 @@ class _DashboardScreenState extends State<DashboardScreen> {
             padding: const EdgeInsets.all(18),
             child: Column(
               children: [
-                // HERO SECTION
+                // ================= AI MENTOR HEADER =================
+                AiMentorHeader(gamification: gamification),
+                const SizedBox(height: 22),
+
+                // ================= PROGRESS OVERVIEW =================
+                ListenableBuilder(
+                  listenable: gamification,
+                  builder: (context, _) {
+                    return ProgressOverviewCard(data: gamification.data);
+                  },
+                ).animate().fade(delay: 100.ms, duration: 400.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
+                const SizedBox(height: 22),
+
+                // ================= YESTERDAY SUMMARY =================
+                ListenableBuilder(
+                  listenable: gamification,
+                  builder: (context, _) {
+                    return YesterdaySummaryCard(data: gamification.data);
+                  },
+                ).animate().fade(delay: 200.ms, duration: 400.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
+                const SizedBox(height: 22),
+
+                // ================= QUICK ACTIONS =================
+                const QuickActionsRow().animate().fade(delay: 300.ms, duration: 400.ms).slideX(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
+
+                const SizedBox(height: 22),
+
+                // ================= AI CAREER MENTOR FEATURED =================
                 ThreeDTiltWrapper(
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
-                      borderRadius: BorderRadius.circular(28),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Theme.of(context).primaryColor.withOpacity(0.25),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.15),
-                            borderRadius: BorderRadius.circular(100),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/career-mentor");
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: Theme.of(context).primaryColor.withValues(alpha: 0.3)),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.psychology_rounded, color: Colors.white, size: 28),
                           ),
-                          child: Text(
-                            "SYSTEM ACTIVE ⚡",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.0,
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "AI Career Mentor",
+                                  style: GoogleFonts.poppins(
+                                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  "Get a multi-domain career roadmap",
+                                  style: GoogleFonts.poppins(
+                                    color: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.7),
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 12),
-                        Text(
-                          "Pilot Your Career Future 🚀",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 0.5,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          "AI-powered intelligent career mentor platform.",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white.withOpacity(0.85),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
+                          const Icon(Icons.arrow_forward_ios_rounded, color: Colors.grey, size: 16),
+                        ],
+                      ),
                     ),
                   ),
-                ).animate().fade(duration: 600.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
+                ).animate().fade(delay: 50.ms, duration: 400.ms).slideY(begin: 0.1, end: 0, curve: Curves.easeOutQuad),
 
                 const SizedBox(height: 22),
 
@@ -323,7 +376,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.12),
+                                  color: Theme.of(context).extension<AppThemeExtension>()!.warning.withValues(alpha: 0.12),
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Icon(
@@ -383,7 +436,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               Text(
                                 "Tap to view full plan",
                                 style: GoogleFonts.poppins(
-                                  color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withOpacity(0.7),
+                                  color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withValues(alpha: 0.7),
                                   fontSize: 13,
                                 ),
                               ),

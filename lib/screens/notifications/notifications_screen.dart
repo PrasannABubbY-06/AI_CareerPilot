@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../constants/app_colors.dart';
 import '../../widgets/common/glass_container.dart';
 import '../../services/notification_service.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -88,13 +86,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.05),
+              color: Theme.of(context).primaryColor.withValues(alpha: 0.05),
               shape: BoxShape.circle,
             ),
             child: Icon(
               Icons.notifications_none_rounded,
               size: 64,
-              color: Theme.of(context).primaryColor.withOpacity(0.5),
+              color: Theme.of(context).primaryColor.withValues(alpha: 0.5),
             ),
           ).animate().scale(delay: 200.ms, duration: 400.ms, curve: Curves.easeOutBack),
           const SizedBox(height: 24),
@@ -130,7 +128,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
       background: Container(
         margin: const EdgeInsets.only(bottom: 12),
         decoration: BoxDecoration(
-          color: Colors.redAccent.withOpacity(0.2),
+          color: Colors.redAccent.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(20),
         ),
         alignment: Alignment.centerRight,
@@ -150,7 +148,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             opacity: item.isRead ? 0.02 : 0.08,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-              color: Colors.white.withOpacity(item.isRead ? 0.05 : 0.15),
+              color: Colors.white.withValues(alpha: item.isRead ? 0.05 : 0.15),
               width: 1.0,
             ),
             child: Row(
@@ -160,13 +158,13 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: _getCategoryColor(item.category).withOpacity(item.isRead ? 0.1 : 0.2),
+                    color: _getCategoryColor(item.category).withValues(alpha: item.isRead ? 0.1 : 0.2),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: item.isRead
                         ? null
                         : [
                             BoxShadow(
-                              color: _getCategoryColor(item.category).withOpacity(0.2),
+                              color: _getCategoryColor(item.category).withValues(alpha: 0.2),
                               blurRadius: 12,
                               offset: const Offset(0, 4),
                             )
@@ -174,7 +172,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   child: Icon(
                     _getCategoryIcon(item.category),
-                    color: _getCategoryColor(item.category).withOpacity(item.isRead ? 0.6 : 1.0),
+                    color: _getCategoryColor(item.category).withValues(alpha: item.isRead ? 0.6 : 1.0),
                     size: 24,
                   ),
                 ),
@@ -199,7 +197,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           Text(
                             _formatTimestamp(item.timestamp),
                             style: GoogleFonts.poppins(
-                              color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withOpacity(0.7),
+                              color: (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey).withValues(alpha: 0.7),
                               fontSize: 11,
                             ),
                           ),
@@ -209,7 +207,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       Text(
                         item.message,
                         style: GoogleFonts.poppins(
-                          color: item.isRead ? (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey) : Colors.white.withOpacity(0.9),
+                          color: item.isRead ? (Theme.of(context).textTheme.bodyMedium?.color ?? Colors.grey) : Colors.white.withValues(alpha: 0.9),
                           fontSize: 13,
                           height: 1.4,
                         ),

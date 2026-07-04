@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../constants/app_colors.dart';
 import 'edit_profile_screen.dart';
 import 'module_detail_screen.dart';
 import '../../widgets/common/glass_container.dart';
@@ -138,8 +137,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: skills.map((s) => Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               decoration: BoxDecoration(
-                color: const Color(0xFFF59E0B).withOpacity(0.1),
-                border: Border.all(color: const Color(0xFFF59E0B).withOpacity(0.3)),
+                color: const Color(0xFFF59E0B).withValues(alpha: 0.1),
+                border: Border.all(color: const Color(0xFFF59E0B).withValues(alpha: 0.3)),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Text(s, style: const TextStyle(color: Colors.white, fontSize: 13)),
@@ -410,7 +409,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            Icon(Icons.arrow_forward_ios_rounded, color: Theme.of(context).iconTheme.color?.withOpacity(0.3), size: 14),
+            Icon(Icons.arrow_forward_ios_rounded, color: Theme.of(context).iconTheme.color?.withValues(alpha: 0.3), size: 14),
           ],
         ),
       ),
@@ -491,7 +490,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title,
         style: GoogleFonts.poppins(color: Theme.of(context).textTheme.bodyLarge?.color, fontSize: 14, fontWeight: FontWeight.w500),
       ),
-      trailing: Icon(Icons.chevron_right_rounded, color: Theme.of(context).iconTheme.color?.withOpacity(0.3), size: 20),
+      trailing: Icon(Icons.chevron_right_rounded, color: Theme.of(context).iconTheme.color?.withValues(alpha: 0.3), size: 20),
       onTap: onTap,
     );
   }
@@ -548,7 +547,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 boxShadow: [
-                  BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.06), blurRadius: 110),
+                  BoxShadow(color: Theme.of(context).primaryColor.withValues(alpha: 0.06), blurRadius: 110),
                 ],
               ),
             ),
@@ -567,7 +566,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     gradient: Theme.of(context).extension<AppThemeExtension>()!.primaryGradient,
                     borderRadius: BorderRadius.circular(28),
                     boxShadow: [
-                      BoxShadow(color: Theme.of(context).primaryColor.withOpacity(0.25), blurRadius: 20, offset: const Offset(0, 8)),
+                      BoxShadow(color: Theme.of(context).primaryColor.withValues(alpha: 0.25), blurRadius: 20, offset: const Offset(0, 8)),
                     ],
                   ),
                   child: Row(
@@ -575,7 +574,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Container(
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white.withOpacity(0.8), width: 2.5),
+                          border: Border.all(color: Colors.white.withValues(alpha: 0.8), width: 2.5),
                         ),
                         child: CircleAvatar(
                           radius: 36,
@@ -591,11 +590,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             Text(name, style: GoogleFonts.poppins(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold)),
                             const SizedBox(height: 4),
-                            Text(email, style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.85), fontSize: 13)),
+                            Text(email, style: GoogleFonts.poppins(color: Colors.white.withValues(alpha: 0.85), fontSize: 13)),
                             const SizedBox(height: 8),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                              decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(12)),
+                              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(12)),
                               child: Text(
                                 "Goal: $careerGoal",
                                 style: GoogleFonts.poppins(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w600),

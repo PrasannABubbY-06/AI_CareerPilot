@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../../constants/app_colors.dart';
 import '../../../widgets/common/primary_button.dart';
 import '../../../widgets/common/glass_container.dart';
 import 'package:ai_careerpilot/config/app_theme_extension.dart';
@@ -61,13 +60,13 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: isSelected
-                          ? Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.12)
-                          : Colors.white.withOpacity(0.02),
+                          ? Theme.of(context).extension<AppThemeExtension>()!.warning.withValues(alpha: 0.12)
+                          : Colors.white.withValues(alpha: 0.02),
                       shape: BoxShape.circle,
                       border: Border.all(
                         color: isSelected
-                            ? Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.5)
-                            : Colors.white.withOpacity(0.05),
+                            ? Theme.of(context).extension<AppThemeExtension>()!.warning.withValues(alpha: 0.5)
+                            : Colors.white.withValues(alpha: 0.05),
                         width: 1,
                       ),
                     ),
@@ -78,7 +77,7 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
                       shadows: isSelected
                           ? [
                               Shadow(
-                                color: Theme.of(context).extension<AppThemeExtension>()!.warning.withOpacity(0.6),
+                                color: Theme.of(context).extension<AppThemeExtension>()!.warning.withValues(alpha: 0.6),
                                 blurRadius: 10,
                               )
                             ]
@@ -112,7 +111,7 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.08),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.08),
                     blurRadius: 120,
                   ),
                 ],
@@ -128,7 +127,7 @@ class _SelfRatingScreenState extends State<SelfRatingScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(0.12),
+                      color: Theme.of(context).primaryColor.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(100),
                     ),
                     child: Text(

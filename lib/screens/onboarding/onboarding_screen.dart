@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../constants/app_colors.dart';
 import '../../widgets/animations/three_d_tilt_wrapper.dart';
 import '../../widgets/common/primary_button.dart';
 import '../../widgets/common/glass_container.dart';
@@ -72,7 +71,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.15),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.15),
                     blurRadius: 120,
                   ),
                 ],
@@ -89,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).colorScheme.secondary.withOpacity(0.12),
+                    color: Theme.of(context).colorScheme.secondary.withValues(alpha: 0.12),
                     blurRadius: 150,
                   ),
                 ],
@@ -110,11 +109,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onPressed: _finishOnboarding,
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white70,
-                        backgroundColor: Colors.white.withOpacity(0.04),
+                        backgroundColor: Colors.white.withValues(alpha: 0.04),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(
-                            color: Colors.white.withOpacity(0.08),
+                            color: Colors.white.withValues(alpha: 0.08),
                           ),
                         ),
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

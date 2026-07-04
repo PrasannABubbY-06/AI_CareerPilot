@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
 import '../common/glass_container.dart';
-import 'package:ai_careerpilot/config/app_theme_extension.dart';
 
 class BottomNavbar extends StatelessWidget {
   final int currentIndex;
@@ -39,7 +37,7 @@ class BottomNavbar extends StatelessWidget {
               elevation: 0,
               type: BottomNavigationBarType.fixed,
               selectedItemColor: Theme.of(context).primaryColor,
-              unselectedItemColor: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.6) ?? Colors.grey,
+              unselectedItemColor: Theme.of(context).textTheme.bodyMedium?.color?.withValues(alpha: 0.6) ?? Colors.grey,
               selectedFontSize: 12,
               unselectedFontSize: 11,
               showSelectedLabels: true,

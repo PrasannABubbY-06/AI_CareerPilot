@@ -272,10 +272,10 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
       margin: const EdgeInsets.only(right: 8, bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.12),
+        color: color.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          color: color.withOpacity(0.35),
+          color: color.withValues(alpha: 0.35),
           width: 1,
         ),
       ),
@@ -315,7 +315,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withOpacity(0.06),
+                    color: Theme.of(context).primaryColor.withValues(alpha: 0.06),
                     blurRadius: 110,
                   ),
                 ],
@@ -338,7 +338,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: Theme.of(context).primaryColor.withOpacity(0.2),
+                        color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                         blurRadius: 16,
                         offset: const Offset(0, 6),
                       ),
@@ -358,7 +358,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                       const SizedBox(height: 8),
                       Text(
                         "AI analyzes your resume, target role, missing skills & job eligibility instantly.",
-                        style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.85), fontSize: 13),
+                        style: GoogleFonts.poppins(color: Colors.white.withValues(alpha: 0.85), fontSize: 13),
                       ),
                     ],
                   ),
@@ -373,10 +373,10 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                     width: double.infinity,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.02),
+                      color: Colors.white.withValues(alpha: 0.02),
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(
-                        color: Theme.of(context).primaryColor.withOpacity(0.4),
+                        color: Theme.of(context).primaryColor.withValues(alpha: 0.4),
                         width: 1.5,
                         style: BorderStyle.solid, // Note: Flutter doesn't native dash easily without painter, solid is fine with lower opacity
                       ),
@@ -453,7 +453,7 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                           height: 80,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: (resumeScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning).withOpacity(0.1),
+                            color: (resumeScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning).withValues(alpha: 0.1),
                             border: Border.all(
                               color: (resumeScore >= 70 ? Theme.of(context).extension<AppThemeExtension>()!.success : Theme.of(context).extension<AppThemeExtension>()!.warning),
                               width: 2.0,
@@ -524,9 +524,9 @@ class _ResumeReviewerScreenState extends State<ResumeReviewerScreen> {
                         margin: const EdgeInsets.only(bottom: 12),
                         padding: const EdgeInsets.all(18),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.03),
+                          color: Colors.white.withValues(alpha: 0.03),
                           borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: Colors.white.withOpacity(0.06)),
+                          border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
                         ),
                         child: Row(
                           children: [

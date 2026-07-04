@@ -156,7 +156,7 @@ class AnalysisResultScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color:
                               const Color(0xff5D8CFF)
-                                  .withOpacity(0.2),
+                                  .withValues(alpha: 0.2),
 
                           borderRadius:
                               BorderRadius.circular(30),
